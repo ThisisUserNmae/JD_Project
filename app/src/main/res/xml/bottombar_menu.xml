@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs >
+
+    <tab
+        id="@+id/tab_recents"
+        icon="@drawable/ac0"
+        />
+    <tab
+        id="@+id/tab_favorites"
+        icon="@drawable/abw"
+        />
+    <tab
+        id="@+id/tab_nearby"
+        icon="@drawable/abu"
+        />
+    <tab
+        id="@+id/tab_friends"
+        icon="@drawable/ac2"
+        />
+
+</tabs>
