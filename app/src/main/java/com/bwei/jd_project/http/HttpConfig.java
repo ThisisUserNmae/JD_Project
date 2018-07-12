@@ -7,4 +7,9 @@ public class HttpConfig {
 
     public final static String CHILDRENCLASSIFY_URL = "https://www.zhaoapi.cn/product/getProductCatagory";
 
+
+    public final static String SHOPPINGCAR_URL = "https://www.zhaoapi.cn/product/getCarts?uid=";
+
+
+
 }

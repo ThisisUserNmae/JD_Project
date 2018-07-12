@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+
+    >
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/productCheckbox"
+        />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/productPic"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dsdddd"
+            android:layout_marginLeft="5dp"
+            android:textSize="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:id="@+id/productName"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/productPrice"
+            android:text="dddddd"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+
+        <com.bwei.jd_project.mvp.shoppingcar.view.MyView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/productMyView"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

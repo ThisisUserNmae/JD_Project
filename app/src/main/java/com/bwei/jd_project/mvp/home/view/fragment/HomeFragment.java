@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -54,6 +55,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     }
 
     protected void initViews() {
+
+
 
         mainGridView = view.findViewById(R.id.mainGridView);
         mainRecyclerViewPhone = (RecyclerView) view.findViewById(R.id.mainRecyclerViewPhone);
