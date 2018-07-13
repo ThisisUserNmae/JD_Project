@@ -1,11 +1,13 @@
 package com.bwei.jd_project.mvp.classify.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,14 @@ import com.bwei.jd_project.base.BaseFragment;
 import com.bwei.jd_project.http.HttpConfig;
 import com.bwei.jd_project.mvp.classify.model.bean.ProductCatagoryBean;
 import com.bwei.jd_project.mvp.classify.presenter.ClassifyPresneter;
+import com.bwei.jd_project.mvp.classify.view.activity.ShowProductActivity;
 import com.bwei.jd_project.mvp.classify.view.adapter.ChildrenProductClassifyNameAndProductContent;
 import com.bwei.jd_project.mvp.classify.view.adapter.ProductClassifyBaseAdapter;
 import com.bwei.jd_project.mvp.classify.view.iview.IClassifyView;
 import com.bwei.jd_project.mvp.home.model.bean.CatagoryBean;
 import com.stx.xhb.xbanner.XBanner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements IClassifyView {
@@ -38,8 +42,6 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
 
     @Override
     protected void initDatas() {
-
-
 
 
     }
@@ -99,18 +101,37 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
 
         if ("0".equals(code)){
 
-            List<ProductCatagoryBean.DataBean> data = productCatagoryBean.getData();
+            final List<ProductCatagoryBean.DataBean> data = productCatagoryBean.getData();
 
             ChildrenProductClassifyNameAndProductContent childrenProductClassifyNameAndProductContent = new ChildrenProductClassifyNameAndProductContent(getActivity(),data);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
             classifyShopsRecyclerView.setLayoutManager(linearLayoutManager);
+
             classifyShopsRecyclerView.setAdapter(childrenProductClassifyNameAndProductContent);
+
+            childrenProductClassifyNameAndProductContent.setOnClickListener(new ChildrenProductClassifyNameAndProductContent.OnClickListener() {
+                @Override
+                public void onClickListener(View view, int position) {
+
+                    List<ProductCatagoryBean.DataBean.ListBean> list = data.get(position).getList();
+
+                    int pscid = list.get(position).getPscid();
+
+                    Intent it = new Intent(getActivity(), ShowProductActivity.class);
+
+                    it.putExtra("pscid",pscid);
+
+                    startActivity(it);
+
+                }
+            });
+
 
         }else{
 
-            Toast.makeText(getActivity(),"dddd",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"您的请求失败了",Toast.LENGTH_LONG).show();
 
         }
 
@@ -120,7 +141,6 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
     public void getProductCatagoryError(Throwable throwable) {
 
         Toast.makeText(getActivity(),throwable.getMessage(),Toast.LENGTH_LONG).show();
-
 
     }
 

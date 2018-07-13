@@ -1,5 +1,6 @@
 package com.bwei.jd_project.mvp.home.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.bwei.jd_project.mvp.home.model.MyGridView;
 import com.bwei.jd_project.mvp.home.model.bean.AdBean;
 import com.bwei.jd_project.mvp.home.model.bean.CatagoryBean;
 import com.bwei.jd_project.mvp.home.presenter.HomePresenter;
+import com.bwei.jd_project.mvp.home.view.activity.ProductDetailsActivity;
 import com.bwei.jd_project.mvp.home.view.adapter.ChildrenProductBaseAdapter;
 import com.bwei.jd_project.mvp.home.view.adapter.ProductClassifyShowRecyclerView;
 import com.bwei.jd_project.mvp.home.view.adapter.ProductShowRecyclerView;
@@ -55,8 +57,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     }
 
     protected void initViews() {
-
-
 
         mainGridView = view.findViewById(R.id.mainGridView);
         mainRecyclerViewPhone = (RecyclerView) view.findViewById(R.id.mainRecyclerViewPhone);
@@ -111,7 +111,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
             AdBean.MiaoshaBean miaosha = adBean.getMiaosha();
 
-            List<AdBean.MiaoshaBean.ListBeanX> list = miaosha.getList();
+            final List<AdBean.MiaoshaBean.ListBeanX> list = miaosha.getList();
 
             ProductShowRecyclerView productShowRecyclerView = new ProductShowRecyclerView(getActivity(), list);
 
@@ -122,6 +122,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
             mainRecyclerViewPhone.setLayoutManager(gridLayoutManager);
 
             mainRecyclerViewPhone.setAdapter(productShowRecyclerView);
+
+            productShowRecyclerView.setSetOnClickListener(new ProductShowRecyclerView.setOnClickListener() {
+                @Override
+                public void onClickListener(View view, int position) {
+
+/*                    int pid = list.get(position).getPid();
+
+                    Intent it = new Intent(getActivity(), ProductDetailsActivity.class);
+
+                    it.putExtra("pid",pid);
+
+                    startActivity(it);*/
+
+                    Toast.makeText(getActivity(),"您的监听成功了",Toast.LENGTH_LONG).show();
+
+                }
+            });
 
             AdBean.TuijianBean tuijian = adBean.getTuijian();
 
@@ -149,12 +166,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     @Override
     public void getCatagorySuccess(CatagoryBean catagoryBean) {
 
-
         String code = catagoryBean.getCode();
 
         if ("0".equals(code)) {
 
-            List<CatagoryBean.DataBean> data = catagoryBean.getData();
+            final List<CatagoryBean.DataBean> data = catagoryBean.getData();
 
             ProductClassifyShowRecyclerView productClassifyShowRecyclerView = new ProductClassifyShowRecyclerView(getActivity(), data);
 
@@ -165,6 +181,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
             mainRecyclerViewShowProductClassify.setLayoutManager(gridLayoutManager);
 
             mainRecyclerViewShowProductClassify.setAdapter(productClassifyShowRecyclerView);
+
+            productClassifyShowRecyclerView.setSetOnClickListener(new ProductClassifyShowRecyclerView.setOnClickListener() {
+                @Override
+                public void OnClickListener(View view, int position) {
+
+                    Toast.makeText(getActivity(),"您点击了"+data.get(position).getName(),Toast.LENGTH_LONG).show();
+
+                }
+            });
 
         }
 

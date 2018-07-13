@@ -38,11 +38,24 @@ public class ProductShowRecyclerView extends RecyclerView.Adapter<ProductShowRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         String[] split = list.get(position).getImages().split("\\|");
 
         holder.homeItemPic.setImageURI(split[1]);
+
+        holder.homeItemPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (setOnClickListener!=null){
+
+                    setOnClickListener.onClickListener(v,position);
+
+                }
+
+            }
+        });
 
     }
 
@@ -61,5 +74,20 @@ public class ProductShowRecyclerView extends RecyclerView.Adapter<ProductShowRec
             homeItemPic = itemView.findViewById(R.id.homeItemPic);
 
         }
+
     }
+
+    setOnClickListener setOnClickListener;
+
+    public void setSetOnClickListener(ProductShowRecyclerView.setOnClickListener setOnClickListener) {
+
+        this.setOnClickListener = setOnClickListener;
+    }
+
+    public interface setOnClickListener{
+
+        void onClickListener(View view,int position);
+
+    }
+
 }

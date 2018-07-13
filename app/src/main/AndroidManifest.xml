@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.home.view.activity.HomeActivity"></activity>
+        <activity android:name=".mvp.home.view.activity.HomeActivity" />
+        <activity android:name=".mvp.home.view.activity.ProductDetailsActivity" />
+        <activity android:name=".mvp.classify.view.activity.ShowProductActivity"></activity>
     </application>
 
 </manifest>

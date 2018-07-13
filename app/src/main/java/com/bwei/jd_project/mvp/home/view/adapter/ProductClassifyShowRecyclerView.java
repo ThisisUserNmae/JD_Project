@@ -38,13 +38,40 @@ public class ProductClassifyShowRecyclerView extends RecyclerView.Adapter<Produc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         String icon = list.get(position).getIcon();
 
         holder.productClassifyPic.setImageURI(icon);
 
         holder.productClassifyName.setText(list.get(position).getName());
+
+
+        holder.productClassifyPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (setOnClickListener !=null){
+
+                    setOnClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
+
+        holder.productClassifyName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (setOnClickListener !=null){
+
+                    setOnClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
 
     }
 
@@ -67,4 +94,19 @@ public class ProductClassifyShowRecyclerView extends RecyclerView.Adapter<Produc
 
         }
     }
+
+    setOnClickListener setOnClickListener;
+
+    public void setSetOnClickListener(ProductClassifyShowRecyclerView.setOnClickListener setOnClickListener) {
+        this.setOnClickListener = setOnClickListener;
+    }
+
+    public interface setOnClickListener{
+
+        void OnClickListener(View view,int position);
+
+
+    }
+
+
 }

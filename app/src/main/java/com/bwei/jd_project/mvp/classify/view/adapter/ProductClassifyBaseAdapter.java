@@ -62,7 +62,6 @@ public class ProductClassifyBaseAdapter extends BaseAdapter {
         return convertView;
     }
 
-
     class ViewHolder{
 
         TextView classifyName;

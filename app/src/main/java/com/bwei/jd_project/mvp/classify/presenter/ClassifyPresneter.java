@@ -19,6 +19,8 @@ public class ClassifyPresneter extends BasePresenter<IClassifyView> {
 
     private ClassifyModel classifyModel;
 
+    private IClassifyView iClassifyView;
+
     public ClassifyPresneter(IClassifyView view) {
         super(view);
         classifyModel = new ClassifyModel();

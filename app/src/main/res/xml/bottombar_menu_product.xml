@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs >
+
+    <tab
+        id="@+id/btn1"
+        title="Recents"
+        />
+    <tab
+        id="@+id/btn2"
+        title="Favorites"
+        />
+
+    <tab id="@+id/btn3"
+        title="Nearby"
+        />
+
+</tabs>

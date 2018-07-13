@@ -7,8 +7,15 @@ public class HttpConfig {
 
     public final static String CHILDRENCLASSIFY_URL = "https://www.zhaoapi.cn/product/getProductCatagory";
 
-
     public final static String SHOPPINGCAR_URL = "https://www.zhaoapi.cn/product/getCarts?uid=";
+
+    public final static String SHOWCHILDRENPRODUCT_URL = "https://www.zhaoapi.cn/product/getProducts?pscid=";
+
+    public final static String ADDSHOPPINGCAR_URL = "https://www.zhaoapi.cn/product/addCart?uid=";
+
+
+
+
 
 
 

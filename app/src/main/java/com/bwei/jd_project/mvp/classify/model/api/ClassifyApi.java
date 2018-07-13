@@ -1,6 +1,7 @@
 package com.bwei.jd_project.mvp.classify.model.api;
 
 import com.bwei.jd_project.mvp.classify.model.bean.ProductCatagoryBean;
+import com.bwei.jd_project.mvp.classify.model.bean.ShowProductBean;
 import com.bwei.jd_project.mvp.home.model.bean.CatagoryBean;
 
 
@@ -15,5 +16,8 @@ public interface ClassifyApi {
 
     @GET()
     Observable<ProductCatagoryBean> childrenproductClassify (@Url String url);
+
+    @GET()
+    Observable<ShowProductBean> showProduct(@Url String url);
 
 }

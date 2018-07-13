@@ -34,18 +34,43 @@ public class ChildrenProductContentRecyclerView extends RecyclerView.Adapter<Chi
 
         MyViewHolder myViewHolder = new MyViewHolder(inflate);
 
-
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         String icon = list.get(position).getIcon();
 
         holder.classifyProductPic.setImageURI(icon);
 
         holder.classifyProductName.setText(list.get(position).getName());
+
+        holder.classifyProductPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (setOnClickLisener!=null){
+
+                    setOnClickLisener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
+
+        holder.classifyProductName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (setOnClickLisener!=null){
+
+                    setOnClickLisener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
 
     }
 
@@ -68,4 +93,18 @@ public class ChildrenProductContentRecyclerView extends RecyclerView.Adapter<Chi
 
         }
     }
+
+    setOnClickLisener setOnClickLisener;
+
+    public void setOnClickLisener(ChildrenProductContentRecyclerView.setOnClickLisener setOnClickLisener) {
+        this.setOnClickLisener = setOnClickLisener;
+    }
+
+    public interface setOnClickLisener{
+
+        void OnClickListener(View view,int position);
+
+    }
+
+
 }

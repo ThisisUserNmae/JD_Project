@@ -25,7 +25,7 @@ import java.util.List;
 
 public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> implements IShoppingCarView ,View.OnClickListener{
 
-    private int uid = 71;
+    private int uid = 14744;
     private CheckBox checkBoxAll;
     private TextView toalPrice;
     private Button toalNumber;
