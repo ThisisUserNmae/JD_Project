@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -59,8 +60,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     protected void initViews() {
 
         mainGridView = view.findViewById(R.id.mainGridView);
+
         mainRecyclerViewPhone = (RecyclerView) view.findViewById(R.id.mainRecyclerViewPhone);
+
         mainRecyclerViewShowProductClassify = (RecyclerView) view.findViewById(R.id.mainRecyclerViewShowProductClassify);
+
         banner = (XBanner) view.findViewById(R.id.banner);
 
         presenter = new HomePresenter(this);
@@ -127,28 +131,43 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 @Override
                 public void onClickListener(View view, int position) {
 
-/*                    int pid = list.get(position).getPid();
+                    int pid = list.get(position).getPid();
 
                     Intent it = new Intent(getActivity(), ProductDetailsActivity.class);
 
                     it.putExtra("pid",pid);
 
-                    startActivity(it);*/
+                    startActivity(it);
 
-                    Toast.makeText(getActivity(),"您的监听成功了",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(),"您的监听成功了"+pid,Toast.LENGTH_LONG).show();
 
                 }
             });
 
             AdBean.TuijianBean tuijian = adBean.getTuijian();
 
-            List<AdBean.TuijianBean.ListBean> list1 = tuijian.getList();
+            final List<AdBean.TuijianBean.ListBean> list1 = tuijian.getList();
 
             ChildrenProductBaseAdapter adapter = new ChildrenProductBaseAdapter(getActivity(), list1);
 
             mainGridView.setAdapter(adapter);
 
             presenter.catagoryPresenter(HttpConfig.CATAGORYBEAN_URL);
+
+            mainGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    int pid = list1.get(position).getPid();
+
+                    Intent it = new Intent(getActivity(), ProductDetailsActivity.class);
+
+                    it.putExtra("pid",pid);
+
+                    startActivity(it);
+
+                }
+            });
 
         } else {
 
@@ -186,7 +205,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 @Override
                 public void OnClickListener(View view, int position) {
 
-                    Toast.makeText(getActivity(),"您点击了"+data.get(position).getName(),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(),"您点击了"+data.get(position).getName(),Toast.LENGTH_LONG).show();
 
                 }
             });

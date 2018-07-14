@@ -19,6 +19,7 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
     private Context context;
 
     private List<ShoppingCarBean.DataBean> list;
+
     private List<ShoppingCarBean.DataBean.ListBean> childList;
 
     public ShoppingCarShowExpandableListView(Context context, List<ShoppingCarBean.DataBean> list) {
@@ -38,12 +39,14 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
     @Override
     public Object getGroup(int groupPosition) {
-        return null;
+
+        return list.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return null;
+
+        return list.get(groupPosition).getList().get(childPosition);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
@@ -192,6 +195,19 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
                 if (onCartListChangeListener != null) {
 
                     onCartListChangeListener.onProductNumberChange(groupPosition, childPosition, num);
+
+                }
+
+            }
+        });
+
+        productViewHolder.productMyView.setIsDeleteCurrentProduct(new MyView.isDeleteCurrentProduct() {
+            @Override
+            public void OnIsDeleteClickListener() {
+
+                if (onDeleteClickListener != null) {
+
+                    onDeleteClickListener.OnClickListener(groupPosition, childPosition);
 
                 }
 
@@ -333,7 +349,6 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
     public void isShopsAndProductSelected(boolean b) {
 
 
-
     }
 
     class ShopsViewHolder {
@@ -370,6 +385,19 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
         void onProductCheckedChange(int groupPosition, int childPosition);
 
         void onProductNumberChange(int groupPosition, int childPosition, int number);
+    }
+
+
+    OnDeleteClickListener onDeleteClickListener;
+
+    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
+        this.onDeleteClickListener = onDeleteClickListener;
+    }
+
+    public interface OnDeleteClickListener {
+
+        void OnClickListener(int groupPoistion, int childPoistion);
+
     }
 
 }

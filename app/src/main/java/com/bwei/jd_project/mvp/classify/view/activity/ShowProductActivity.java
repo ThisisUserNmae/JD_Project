@@ -15,15 +15,20 @@ import com.bwei.jd_project.mvp.classify.model.bean.ShowProductBean;
 import com.bwei.jd_project.mvp.classify.presenter.ClassifyShowProductPresenter;
 import com.bwei.jd_project.mvp.classify.view.adapter.ShowProductRecyclerView;
 import com.bwei.jd_project.mvp.classify.view.iview.IClassifyShowProductView;
+import com.bwei.jd_project.mvp.home.view.activity.ProductDetailsActivity;
 
 import java.util.List;
 
 public class ShowProductActivity extends AppCompatActivity implements View.OnClickListener ,IClassifyShowProductView{
 
     private android.widget.TextView btn1;
+
     private android.widget.TextView btn2;
+
     private android.widget.TextView btn3;
+
     private android.support.v7.widget.RecyclerView ProductRecyclerView;
+
     private ClassifyShowProductPresenter classifyShowProductPresenter;
 
     private String DEFAULT = "0";
@@ -52,7 +57,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
     private void initDatas() {
 
-        classifyShowProductPresenter.showProduct(pscid,DEFAULT);
+        classifyShowProductPresenter.showProduct(pscid,"0");
 
     }
 
@@ -61,12 +66,17 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
         classifyShowProductPresenter = new ClassifyShowProductPresenter(this);
 
         btn3 = (TextView) findViewById(R.id.btn3);
+
         btn2 = (TextView) findViewById(R.id.btn2);
+
         btn1 = (TextView) findViewById(R.id.btn1);
+
         ProductRecyclerView = (RecyclerView) findViewById(R.id.ProductRecyclerView);
 
         btn1.setOnClickListener(this);
+
         btn2.setOnClickListener(this);
+
         btn3.setOnClickListener(this);
 
     }
@@ -105,7 +115,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
         if ("0".equals(code)){
 
-            List<ShowProductBean.DataBean> data = showProductBean.getData();
+            final List<ShowProductBean.DataBean> data = showProductBean.getData();
 
             ShowProductRecyclerView showProductRecyclerView = new ShowProductRecyclerView(ShowProductActivity.this,data);
 
@@ -114,6 +124,21 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
             ProductRecyclerView.setLayoutManager(linearLayoutManager);
 
             ProductRecyclerView.setAdapter(showProductRecyclerView);
+
+            showProductRecyclerView.setOnClickListener(new ShowProductRecyclerView.OnClickListener() {
+                @Override
+                public void OnClickListener(View view, int position) {
+
+                    int pid = data.get(position).getPid();
+
+                    Intent it = new Intent(ShowProductActivity.this, ProductDetailsActivity.class);
+
+                    it.putExtra("pid",pid);
+
+                    startActivity(it);
+
+                }
+            });
 
         }else{
 
@@ -125,8 +150,6 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void getError(Throwable throwable) {
-
-
 
     }
 

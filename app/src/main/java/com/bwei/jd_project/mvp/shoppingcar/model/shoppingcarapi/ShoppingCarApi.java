@@ -1,5 +1,6 @@
 package com.bwei.jd_project.mvp.shoppingcar.model.shoppingcarapi;
 
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 
 
@@ -11,5 +12,9 @@ public interface ShoppingCarApi {
 
     @GET()
     Observable<ShoppingCarBean> selectShoppingCar (@Url String url);
+
+    @GET()
+    Observable<DeleteCartBean> deleteCart (@Url String url);
+
 
 }

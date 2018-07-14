@@ -1,5 +1,6 @@
 package com.bwei.jd_project.mvp.shoppingcar.model;
 
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.shoppingcarapi.ShoppingCarApi;
 import com.bwei.jd_project.utils.RetrofitManager;
@@ -14,5 +15,13 @@ public class ShoppingCarModel {
         return RetrofitManager.getDefault().create(ShoppingCarApi.class).selectShoppingCar(url);
 
     }
+
+    public Observable<DeleteCartBean> deleteCart(String url){
+
+        return RetrofitManager.getDefault().create(ShoppingCarApi.class).deleteCart(url);
+
+    }
+
+
 
 }

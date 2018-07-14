@@ -37,7 +37,7 @@ public class ShowProductRecyclerView extends RecyclerView.Adapter<ShowProductRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShowProductRecyclerView.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ShowProductRecyclerView.MyViewHolder holder, final int position) {
 
         String[] split = list.get(position).getImages().split("\\|");
 
@@ -50,6 +50,74 @@ public class ShowProductRecyclerView extends RecyclerView.Adapter<ShowProductRec
         holder.showProductOldPrice.setText("原价"+list.get(position).getBargainPrice()+"元");
 
         holder.showProductNewPrice.setText("现价"+list.get(position).getPrice()+"元");
+
+
+
+        holder.showProductPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener!=null){
+
+                    onClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
+
+
+        holder.showProductTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener!=null){
+
+                    onClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
+
+        holder.showProductContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener!=null){
+
+                    onClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
+
+        holder.showProductNewPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener!=null){
+
+                    onClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
+
+        holder.showProductOldPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener!=null){
+
+                    onClickListener.OnClickListener(v,position);
+
+                }
+
+            }
+        });
 
     }
 
@@ -77,8 +145,17 @@ public class ShowProductRecyclerView extends RecyclerView.Adapter<ShowProductRec
 
         }
 
+    }
 
+    OnClickListener onClickListener;
 
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener{
+
+        void OnClickListener(View view,int position);
 
     }
 }

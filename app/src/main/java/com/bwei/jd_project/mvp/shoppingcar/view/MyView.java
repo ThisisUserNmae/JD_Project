@@ -76,7 +76,6 @@ public class MyView extends LinearLayout implements View.OnClickListener {
 
                 }
 
-
                 break;
 
             case R.id.jian:
@@ -93,9 +92,13 @@ public class MyView extends LinearLayout implements View.OnClickListener {
 
                     }
 
-                }else{
+                } else {
 
-                    Toast.makeText(getContext(),"您不能再减了",Toast.LENGTH_LONG).show();
+                    if (isDeleteCurrentProduct != null) {
+
+                        isDeleteCurrentProduct.OnIsDeleteClickListener();
+
+                    }
 
                 }
 
@@ -114,6 +117,20 @@ public class MyView extends LinearLayout implements View.OnClickListener {
     public interface onSumNumberClickListener {
 
         void onClicklistener(int num);
+
+    }
+
+
+    isDeleteCurrentProduct isDeleteCurrentProduct;
+
+
+    public void setIsDeleteCurrentProduct(MyView.isDeleteCurrentProduct isDeleteCurrentProduct) {
+        this.isDeleteCurrentProduct = isDeleteCurrentProduct;
+    }
+
+    public interface isDeleteCurrentProduct {
+
+        void OnIsDeleteClickListener();
 
     }
 
