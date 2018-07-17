@@ -391,5 +391,4 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
     }
 
-
 }
