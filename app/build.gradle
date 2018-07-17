@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.bwei.jd_project"
-        minSdkVersion 23
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -19,6 +20,12 @@ android {
         }
     }
 }
+
+greendao {
+    schemaVersion 1
+    daoPackage 'com.bwei.jd_project.database'
+    targetGenDir 'src/main/java' //设置DaoMaster、DaoSession、Dao目录
+     }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,6 +50,7 @@ dependencies {
     implementation 'com.facebook.fresco:animated-gif:1.9.0'
 
     //EventBus
+
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     //配置retrofit2.0
@@ -61,4 +69,6 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:1.0.6'
 
     implementation 'com.roughike:bottom-bar:2.3.1'
+
+    implementation 'org.greenrobot:greendao:3.2.2'
 }

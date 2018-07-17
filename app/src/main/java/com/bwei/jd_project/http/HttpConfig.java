@@ -17,6 +17,11 @@ public class HttpConfig {
 
     public final static String DELETESHHOPPINGCAR_URL = "https://www.zhaoapi.cn/product/deleteCart";
 
+    public final static String LOGIN_URL = "https://www.zhaoapi.cn/user/login";
+
+
+    public final static String SEARCHKEYWORD_URL = "https://www.zhaoapi.cn/product/searchProducts?page=1&keywords=";
+
 
 
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.bwei.jd_project.mvp.home.model.bean.AdBean;
 import com.bwei.jd_project.mvp.home.model.bean.CatagoryBean;
 import com.bwei.jd_project.mvp.home.presenter.HomePresenter;
 import com.bwei.jd_project.mvp.home.view.activity.ProductDetailsActivity;
+import com.bwei.jd_project.mvp.home.view.activity.SelectActivity;
 import com.bwei.jd_project.mvp.home.view.adapter.ChildrenProductBaseAdapter;
 import com.bwei.jd_project.mvp.home.view.adapter.ProductClassifyShowRecyclerView;
 import com.bwei.jd_project.mvp.home.view.adapter.ProductShowRecyclerView;
@@ -36,7 +38,7 @@ import com.stx.xhb.xbanner.transformers.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeView {
+public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeView, View.OnClickListener {
 
     private com.stx.xhb.xbanner.XBanner banner;
 
@@ -46,14 +48,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
     private MyGridView mainGridView;
 
+    private EditText ed_click;
+
     private List<String> images = new ArrayList<>();
 
     private List<String> titles = new ArrayList<>();
 
-
     protected void initDatas() {
 
-
+        presenter.AdPresneter(HttpConfig.AD_URL);
 
     }
 
@@ -61,11 +64,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
         mainGridView = view.findViewById(R.id.mainGridView);
 
-        mainRecyclerViewPhone = (RecyclerView) view.findViewById(R.id.mainRecyclerViewPhone);
+        mainRecyclerViewPhone = view.findViewById(R.id.mainRecyclerViewPhone);
 
-        mainRecyclerViewShowProductClassify = (RecyclerView) view.findViewById(R.id.mainRecyclerViewShowProductClassify);
+        mainRecyclerViewShowProductClassify = view.findViewById(R.id.mainRecyclerViewShowProductClassify);
 
-        banner = (XBanner) view.findViewById(R.id.banner);
+        banner = view.findViewById(R.id.banner);
+
+        ed_click = view.findViewById(R.id.ed_click);
+
+        ed_click.setOnClickListener(this);
 
         presenter = new HomePresenter(this);
 
@@ -135,7 +142,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
                     Intent it = new Intent(getActivity(), ProductDetailsActivity.class);
 
-                    it.putExtra("pid",pid);
+                    it.putExtra("pid", pid);
 
                     startActivity(it);
 
@@ -162,7 +169,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
                     Intent it = new Intent(getActivity(), ProductDetailsActivity.class);
 
-                    it.putExtra("pid",pid);
+                    it.putExtra("pid", pid);
 
                     startActivity(it);
 
@@ -229,16 +236,33 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && presenter !=null){
+        if (isVisibleToUser && presenter != null) {
 
-            presenter.AdPresneter(HttpConfig.AD_URL);
 
-        }else{
+
+        } else {
 
             presenter = new HomePresenter(this);
 
             presenter.AdPresneter(HttpConfig.AD_URL);
 
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.ed_click:
+
+                Intent it = new Intent(getActivity(), SelectActivity.class);
+
+                startActivity(it);
+
+                break;
+
+        }
+
     }
 }

@@ -1,7 +1,10 @@
 package com.bwei.jd_project.mvp.home.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,7 @@ import com.bwei.jd_project.mvp.home.model.bean.ShowDetailsBean;
 import com.bwei.jd_project.mvp.home.presenter.HomeDetailsPresenter;
 import com.bwei.jd_project.mvp.home.view.adapter.ShowProductDetailsRecyclerView;
 import com.bwei.jd_project.mvp.home.view.iview.IHomeShowDetailsView;
+import com.bwei.jd_project.mvp.myinfo.view.activity.LoginActivity;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.transformers.Transformer;
 
@@ -82,7 +86,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
             data = showDetailsBean.getData();
 
-            ShowDetailsBean.SellerBean seller = showDetailsBean.getSeller();
+            final ShowDetailsBean.SellerBean seller = showDetailsBean.getSeller();
 
             ShowProductDetailsRecyclerView showProductDetailsRecyclerView = new ShowProductDetailsRecyclerView(ProductDetailsActivity.this, data, seller);
 
@@ -96,11 +100,43 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
                 @Override
                 public void OnClickListener(View view, int position) {
 
-                    int uid = 14744;
+                    SharedPreferences sharedPreferences = getSharedPreferences("uid", MODE_PRIVATE);
 
-                    int pid = data.getPid();
+                    int uid = sharedPreferences.getInt("uid", 1);
 
-                    homeDetailsPresenter.addShoppingCarPresenter(uid,pid);
+                    if (sharedPreferences.getBoolean("isOn", false)) {
+
+                        int pid = data.getPid();
+
+                        homeDetailsPresenter.addShoppingCarPresenter(uid, pid);
+
+                    } else {
+
+                        AlertDialog.Builder alert = new AlertDialog.Builder(ProductDetailsActivity.this);
+                        alert.setTitle("登陆提示框");
+
+                        alert.setMessage("您确认要去登陆吗?");
+                        alert.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Intent it = new Intent(ProductDetailsActivity.this, LoginActivity.class);
+
+                                startActivity(it);
+
+                            }
+                        });
+
+                        alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alert.show();
+                        alert.create();
+
+                    }
 
                 }
             });
@@ -158,13 +194,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     public void getAddShoppingCarSuccess(AddShoppingCarBean addShoppingCarBean) {
 
         String code = addShoppingCarBean.getCode();
-        if ("0".equals(code)){
+        if ("0".equals(code)) {
 
-            Toast.makeText(ProductDetailsActivity.this,data.getPid()+"号商品已经添加到购物车",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductDetailsActivity.this, data.getPid() + "号商品已经添加到购物车", Toast.LENGTH_SHORT).show();
 
-        }else{
+        } else {
 
-            Toast.makeText(ProductDetailsActivity.this,"您的请求失败了",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -173,7 +209,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     @Override
     public void getAddShoppingCarError(Throwable throwable) {
 
-        Toast.makeText(ProductDetailsActivity.this,""+throwable.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 

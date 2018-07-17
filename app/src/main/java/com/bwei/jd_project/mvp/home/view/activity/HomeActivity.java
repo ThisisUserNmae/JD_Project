@@ -104,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     case R.id.tab_nearby:
 
+
                         mainViewPager.setCurrentItem(2);
 
                         break;

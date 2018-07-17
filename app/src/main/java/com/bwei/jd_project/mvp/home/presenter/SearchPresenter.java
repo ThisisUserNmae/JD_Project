@@ -1,11 +1,11 @@
-package com.bwei.jd_project.mvp.myinfo.presenter;
+package com.bwei.jd_project.mvp.home.presenter;
 
 import android.annotation.SuppressLint;
 
 import com.bwei.jd_project.http.HttpConfig;
-import com.bwei.jd_project.mvp.myinfo.model.MyInfoModel;
-import com.bwei.jd_project.mvp.myinfo.model.bean.LoginBean;
-import com.bwei.jd_project.mvp.myinfo.view.iview.IMyInfoView;
+import com.bwei.jd_project.mvp.home.model.SearchModel;
+import com.bwei.jd_project.mvp.home.model.bean.SearchBean;
+import com.bwei.jd_project.mvp.home.view.iview.ISearchView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -14,35 +14,32 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MyInfoPresenter {
+public class SearchPresenter {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    private MyInfoModel myInfoModel;
+    private ISearchView iSearchView;
 
-    private IMyInfoView iMyInfoView;
+    private SearchModel searchModel;
 
-    public MyInfoPresenter(IMyInfoView iMyInfoView) {
-        myInfoModel = new MyInfoModel();
-        this.iMyInfoView = iMyInfoView;
+    public SearchPresenter(ISearchView iSearchView) {
+        this.iSearchView = iSearchView;
+        searchModel = new SearchModel();
     }
 
     @SuppressLint("CheckResult")
-    public void loginPresenter(String mobile, String password) {
+    public void searchPresenter(String keyword) {
 
-        myInfoModel.loginModle(HttpConfig.LOGIN_URL + "?mobile=" + mobile + "&password=" + password)
-
+        searchModel.searchModel(HttpConfig.SEARCHKEYWORD_URL + keyword)
                 .subscribeOn(Schedulers.io())
-
                 .observeOn(AndroidSchedulers.mainThread())
-
-                .subscribe(new Consumer<LoginBean>() {
+                .subscribe(new Consumer<SearchBean>() {
                     @Override
-                    public void accept(LoginBean loginBean) throws Exception {
+                    public void accept(SearchBean searchBean) throws Exception {
 
-                        if (iMyInfoView != null) {
+                        if (iSearchView != null) {
 
-                            iMyInfoView.getSuccess(loginBean);
+                            iSearchView.getSceess(searchBean);
 
                         }
 
@@ -51,9 +48,9 @@ public class MyInfoPresenter {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        if (iMyInfoView != null) {
+                        if (iSearchView != null) {
 
-                            iMyInfoView.getError(throwable);
+                            iSearchView.getError(throwable);
 
                         }
 
@@ -67,8 +64,6 @@ public class MyInfoPresenter {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
 
-                        compositeDisposable.add(disposable);
-
                     }
                 });
 
@@ -76,13 +71,14 @@ public class MyInfoPresenter {
 
     public void onDestory() {
 
-        if (iMyInfoView != null) {
+        if (iSearchView != null) {
 
-            iMyInfoView = null;
+            iSearchView = null;
 
         }
 
         compositeDisposable.clear();
 
     }
+
 }

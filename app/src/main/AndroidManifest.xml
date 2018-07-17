@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".mvp.home.view.activity.HomeActivity" />
         <activity android:name=".mvp.home.view.activity.ProductDetailsActivity" />
-        <activity android:name=".mvp.classify.view.activity.ShowProductActivity"></activity>
+        <activity android:name=".mvp.classify.view.activity.ShowProductActivity" />
+        <activity android:name=".mvp.home.view.activity.SelectActivity" />
+        <activity android:name=".mvp.myinfo.view.activity.LoginActivity"></activity>
     </application>
 
 </manifest>

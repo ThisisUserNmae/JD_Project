@@ -43,6 +43,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
     @Override
     protected void initDatas() {
 
+        presenter.classifySelect(HttpConfig.CATAGORYBEAN_URL);
 
     }
 
@@ -121,6 +122,8 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
 
                     Intent it = new Intent(getActivity(), ShowProductActivity.class);
 
+                    Toast.makeText(getActivity(),pscid+"",Toast.LENGTH_SHORT).show();
+
                     it.putExtra("pscid",pscid);
 
                     startActivity(it);
@@ -144,14 +147,4 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
 
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser && presenter != null) {
-
-            presenter.classifySelect(HttpConfig.CATAGORYBEAN_URL);
-
-        }
-    }
 }

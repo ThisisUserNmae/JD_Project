@@ -41,7 +41,7 @@ public class ShowProductRecyclerView extends RecyclerView.Adapter<ShowProductRec
 
         String[] split = list.get(position).getImages().split("\\|");
 
-        holder.showProductPic.setImageURI(split[1]);
+        holder.showProductPic.setImageURI(split[0]);
 
         holder.showProductContent.setText(list.get(position).getSubhead());
 

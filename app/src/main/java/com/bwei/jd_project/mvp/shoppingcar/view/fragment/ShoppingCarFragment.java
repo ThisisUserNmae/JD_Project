@@ -1,20 +1,15 @@
 package com.bwei.jd_project.mvp.shoppingcar.view.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.content.SharedPreferences;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.base.BaseFragment;
 import com.bwei.jd_project.http.HttpConfig;
@@ -28,17 +23,25 @@ import java.util.List;
 
 public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> implements IShoppingCarView, View.OnClickListener {
 
-    private int uid = 14744;
+
     private CheckBox checkBoxAll;
+
     private TextView toalPrice;
+
     private Button toalNumber;
+
     private ExpandableListView shoppingCarExpandableListView;
+
     private ShoppingCarShowExpandableListView shoppingCarShowExpandableListView;
+
     private List<ShoppingCarBean.DataBean> data;
+    private int uid;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void initDatas() {
 
+        presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
     }
 
@@ -56,6 +59,10 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
         presenter = new ShoppingCarPresenter(this);
 
         checkBoxAll.setOnClickListener(this);
+
+        sharedPreferences = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
+
+        uid = sharedPreferences.getInt("uid", 1);
 
     }
 
@@ -143,8 +150,6 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                 @Override
                 public void OnClickListener(int groupPoistion, int childPoistion) {
 
-                    final int uid = 14744;
-
                     final int pid = data.get(groupPoistion).getList().get(childPoistion).getPid();
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
@@ -167,7 +172,6 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                         Toast.makeText(getActivity(),"您不能再点减了",Toast.LENGTH_SHORT).show();
 
-
                         }
                     });
 
@@ -179,7 +183,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         } else {
 
-            Toast.makeText(getActivity(), "您的请求失败了", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "您的请求失败了", Toast.LENGTH_LONG).show();
 
         }
 
@@ -204,8 +208,6 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     public void getError(Throwable throwable) {
 
-
-
     }
 
     //处理删除成功数据的回调
@@ -218,9 +220,10 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             //Toast.makeText(getActivity(),"删除成功了",Toast.LENGTH_SHORT).show();
             //查询购物车
-            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
-            shoppingCarShowExpandableListView.notifyDataSetChanged();
+                presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+
+                shoppingCarShowExpandableListView.notifyDataSetChanged();
 
         }else{
 
@@ -236,9 +239,6 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
         Toast.makeText(getActivity(),""+throwable.getMessage(),Toast.LENGTH_SHORT).show();
 
     }
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -261,8 +261,6 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
     }
 
-
-
     //使用懒加载加载网络数据
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -270,13 +268,73 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         if (isVisibleToUser && presenter != null) {
 
-            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+            if (uid != 1){
+
+
+
+            }else{
+
+/*                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("登陆提示框");
+
+                alert.setMessage("您确认要去登陆吗?");
+                alert.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Intent it = new Intent(getActivity(), LoginActivity.class);
+
+                        startActivity(it);
+
+                    }
+                });
+
+                alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alert.show();
+                alert.create();*/
+
+            }
 
         } else {
 
-            presenter = new ShoppingCarPresenter(this);
+            if (uid != 1){
 
-            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+                //presenter = new ShoppingCarPresenter(this);
+
+                //presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+
+            }else{
+
+               /* AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("登陆提示框");
+
+                alert.setMessage("您确认要去登陆吗?");
+                alert.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Intent it = new Intent(getActivity(), LoginActivity.class);
+
+                        startActivity(it);
+
+                    }
+                });
+
+                alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alert.show();
+                alert.create();*/
+
+            }
 
         }
 
