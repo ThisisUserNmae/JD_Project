@@ -1,51 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/reg_bg"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/userPic"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:roundAsCircle="true"
             app:placeholderImage="@drawable/ic_launcher_background"
-            android:id="@+id/userPic"
-            />
+            app:roundAsCircle="true" />
 
         <TextView
+            android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="会飞的鱼"
-            android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
-            android:textSize="20dp"
-            android:id="@+id/userName"
-            />
+            android:layout_marginTop="30dp"
+            android:text="会飞的鱼"
+            android:textSize="20dp" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_marginLeft="80dp"
             android:id="@+id/userSet"
-            android:layout_height="40dp"
-            android:src="@drawable/my_set_hei"
-            />
-
-        <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="80dp"
+            android:src="@drawable/my_set_hei" />
+
+        <ImageView
             android:id="@+id/myMsg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/my_msg_hei"
-            />
+            android:src="@drawable/my_msg_hei" />
 
     </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/dfk"
+                    android:gravity="center"
+                    android:text="待付款"
+                    android:textSize="20dp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/dsh"
+                    android:gravity="center"
+                    android:text="待收款"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/sandian"
+                    android:gravity="center"
+                    android:text="待评价"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/th_sh"
+                    android:gravity="center"
+                    android:text="退换/售后"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/mydd"
+                    android:gravity="center"
+                    android:text="我的订单"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp"
+                android:background="#f00"
+                android:orientation="horizontal"></LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/dp"
+                    android:gravity="center"
+                    android:text="社区"
+                    android:textSize="20dp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/gz"
+                    android:gravity="center"
+                    android:text="关注"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/hd"
+                    android:gravity="center"
+                    android:text="我的活动"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/kh"
+                    android:gravity="center"
+                    android:text="客户服务"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/b5a" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>

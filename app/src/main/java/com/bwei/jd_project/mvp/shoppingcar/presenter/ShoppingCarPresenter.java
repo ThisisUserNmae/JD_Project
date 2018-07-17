@@ -8,7 +8,10 @@ import com.bwei.jd_project.http.HttpConfig;
 import com.bwei.jd_project.mvp.shoppingcar.model.ShoppingCarModel;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.view.iview.IShoppingCarView;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,7 +37,7 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
     }
 
     @SuppressLint("CheckResult")
-    public void selectShoppingCar(String url){
+    public void selectShoppingCar(String url) {
 
         shoppingCarModel.selectShoppingCar(url)
                 .subscribeOn(Schedulers.io())
@@ -43,7 +46,7 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
                     @Override
                     public void accept(ShoppingCarBean shoppingCarBean) throws Exception {
 
-                        if (view!=null){
+                        if (view != null) {
 
                             view.getSuccess(shoppingCarBean);
 
@@ -54,7 +57,7 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        if (view!=null){
+                        if (view != null) {
 
                             view.getError(throwable);
 
@@ -80,16 +83,16 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
 
 
     @SuppressLint("CheckResult")
-    public void deleteCart(int uid, int pid){
+    public void deleteCart(int uid, int pid) {
 
-        shoppingCarModel.deleteCart(HttpConfig.DELETESHHOPPINGCAR_URL+"?uid="+uid+"&pid="+pid)
+        shoppingCarModel.deleteCart(HttpConfig.DELETESHHOPPINGCAR_URL + "?uid=" + uid + "&pid=" + pid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<DeleteCartBean>() {
                     @Override
                     public void accept(DeleteCartBean deleteCartBean) throws Exception {
 
-                        if (view!=null){
+                        if (view != null) {
 
                             view.getDeleteCartSuccess(deleteCartBean);
 
@@ -101,7 +104,7 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        if (view!=null){
+                        if (view != null) {
 
                             view.getDeleteCarError(throwable);
 
@@ -111,6 +114,52 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
+
+                    }
+                }, new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                        compositeDisposable.add(disposable);
+
+                    }
+                });
+
+    }
+
+
+    @SuppressLint("CheckResult")
+    public void updateCaartPresenter(Map<String, String> map) {
+
+        shoppingCarModel.updateCartModel(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UpdateShoppingCarBean>() {
+                    @Override
+                    public void accept(UpdateShoppingCarBean updateShoppingCarBean) throws Exception {
+
+                        if (view != null) {
+
+                            view.getUpdateCartSuccess(updateShoppingCarBean);
+
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        if (view != null) {
+
+                            view.getUpdateCartError(throwable);
+
+                        }
+
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
 
                     }
                 }, new Consumer<Disposable>() {

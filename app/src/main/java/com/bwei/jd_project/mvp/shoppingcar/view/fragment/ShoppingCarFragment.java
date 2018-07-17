@@ -10,16 +10,20 @@ import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.base.BaseFragment;
 import com.bwei.jd_project.http.HttpConfig;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.presenter.ShoppingCarPresenter;
 import com.bwei.jd_project.mvp.shoppingcar.view.adapter.ShoppingCarShowExpandableListView;
 import com.bwei.jd_project.mvp.shoppingcar.view.iview.IShoppingCarView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> implements IShoppingCarView, View.OnClickListener {
 
@@ -94,20 +98,6 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             }
 
-            for (int i = 0; i < data.size(); i++) {
-
-                List<ShoppingCarBean.DataBean.ListBean> list = data.get(i).getList();
-
-                for (int j = 0; j < list.size(); j++) {
-
-                    list.get(j).setSelected(0);
-
-                }
-
-            }
-
-            toalPrice.setText("总计: 0元");
-
             shoppingCarShowExpandableListView.setOnCartListChangeListener(new ShoppingCarShowExpandableListView.onCartListChangeListener() {
                 @Override
                 public void onSellerCheckedChange(int groupPosition) {
@@ -117,6 +107,8 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                     shoppingCarShowExpandableListView.isCurrentAllSelected(groupPosition, !currentProductSelected);
 
                     shoppingCarShowExpandableListView.notifyDataSetChanged();
+
+                    refreshShopsCheckedStatusOnLine(!currentProductSelected, groupPosition);
 
                     sumPriceAndNumber();
 
@@ -129,6 +121,8 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                     shoppingCarShowExpandableListView.notifyDataSetChanged();
 
+                    refreshProductCheckedStatusOnLine(groupPosition, childPosition);
+
                     sumPriceAndNumber();
 
                 }
@@ -140,8 +134,14 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                     shoppingCarShowExpandableListView.notifyDataSetChanged();
 
+
+                    refreshNumberStatusOnLine(groupPosition,childPosition,number);
+
+
                     sumPriceAndNumber();
                 }
+
+
             });
 
             //处理删除的逻辑
@@ -161,7 +161,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            presenter.deleteCart(uid,pid);
+                            presenter.deleteCart(uid, pid);
 
                         }
                     });
@@ -170,7 +170,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                        Toast.makeText(getActivity(),"您不能再点减了",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "您不能再点减了", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -188,6 +188,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
         }
 
     }
+
     //查询是否选中 累加价格 数量
     public void sumPriceAndNumber() {
 
@@ -216,18 +217,18 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         String code = deleteCartBean.getCode();
 
-        if ("0".equals(code)){
+        if ("0".equals(code)) {
 
             //Toast.makeText(getActivity(),"删除成功了",Toast.LENGTH_SHORT).show();
             //查询购物车
 
-                presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
-                shoppingCarShowExpandableListView.notifyDataSetChanged();
+            shoppingCarShowExpandableListView.notifyDataSetChanged();
 
-        }else{
+        } else {
 
-            Toast.makeText(getActivity(),"删除失败了",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "删除失败了", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -236,7 +237,28 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     public void getDeleteCarError(Throwable throwable) {
 
-        Toast.makeText(getActivity(),""+throwable.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void getUpdateCartSuccess(UpdateShoppingCarBean updateShoppingCarBean) {
+
+        String code = updateShoppingCarBean.getCode();
+
+        if ("0".equals(code)) {
+
+            Toast.makeText(getActivity(), "修改购物车成功了", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    @Override
+    public void getUpdateCartError(Throwable throwable) {
+
+        Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -248,95 +270,126 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
             //处理全选
             case R.id.CheckboxAll:
 
-                boolean b = shoppingCarShowExpandableListView.AllShopsAndProductSelected();
+                //boolean b = shoppingCarShowExpandableListView.AllShopsAndProductSelected();
 
-                shoppingCarShowExpandableListView.isShopsAndProductSelected(!b);
+                //shoppingCarShowExpandableListView.isShopsAndProductSelected(!b);
 
-                shoppingCarShowExpandableListView.notifyDataSetChanged();
+                //shoppingCarShowExpandableListView.notifyDataSetChanged();
 
-                sumPriceAndNumber();
+               // sumPriceAndNumber();
 
                 break;
         }
 
     }
 
-    //使用懒加载加载网络数据
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+    public void refreshShopsCheckedStatusOnLine(boolean b, int groupPosition) {
 
-        if (isVisibleToUser && presenter != null) {
+        int isCheck = 0;
 
-            if (uid != 1){
+        if (b == false) {
 
-
-
-            }else{
-
-/*                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("登陆提示框");
-
-                alert.setMessage("您确认要去登陆吗?");
-                alert.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Intent it = new Intent(getActivity(), LoginActivity.class);
-
-                        startActivity(it);
-
-                    }
-                });
-
-                alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert.show();
-                alert.create();*/
-
-            }
+            isCheck = 0;
 
         } else {
 
-            if (uid != 1){
+            isCheck = 1;
 
-                //presenter = new ShoppingCarPresenter(this);
+        }
 
-                //presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+        SharedPreferences uid = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
 
-            }else{
+        int uid1 = uid.getInt("uid", 1);
 
-               /* AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("登陆提示框");
+        List<ShoppingCarBean.DataBean.ListBean> list = data.get(groupPosition).getList();
 
-                alert.setMessage("您确认要去登陆吗?");
-                alert.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        Map<String, String> map = new HashMap<>();
 
-                        Intent it = new Intent(getActivity(), LoginActivity.class);
+        for (int i = 0; i < list.size(); i++) {
 
-                        startActivity(it);
+            int sellerid = list.get(i).getSellerid();
 
-                    }
-                });
+            int pid = list.get(i).getPid();
 
-                alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            int num = list.get(i).getNum();
 
-                    }
-                });
-                alert.show();
-                alert.create();*/
+            map.put("sellerid", sellerid + "");
 
-            }
+            map.put("pid", pid + "");
+
+            map.put("num", num + "");
+
+            map.put("selected", isCheck + "");
+
+            map.put("uid", uid1 + "");
+
+            presenter.updateCaartPresenter(map);
 
         }
 
     }
+
+    public void refreshProductCheckedStatusOnLine(int groupPosition, int childPosition) {
+
+        SharedPreferences uid = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
+
+        int uid1 = uid.getInt("uid", 1);
+
+        Map<String, String> map = new HashMap<>();
+
+        List<ShoppingCarBean.DataBean.ListBean> list = data.get(groupPosition).getList();
+
+        int sellerid = list.get(childPosition).getSellerid();
+
+        int pid = list.get(childPosition).getPid();
+
+        int num = list.get(childPosition).getNum();
+
+        int selected = list.get(childPosition).getSelected();
+
+        map.put("sellerid", sellerid + "");
+
+        map.put("pid", pid + "");
+
+        map.put("num", num + "");
+
+        map.put("selected", (selected == 0 ? 1 : 0) + "");
+
+        map.put("uid", uid1 + "");
+
+        presenter.updateCaartPresenter(map);
+
+    }
+
+    public void refreshNumberStatusOnLine(int groupPosition, int childPosition, int number) {
+
+        SharedPreferences uid = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
+
+        int uid1 = uid.getInt("uid", 1);
+
+        Map<String, String> map = new HashMap<>();
+
+        List<ShoppingCarBean.DataBean.ListBean> list = data.get(groupPosition).getList();
+
+        int sellerid = list.get(childPosition).getSellerid();
+
+        int pid = list.get(childPosition).getPid();
+
+        int selected = list.get(childPosition).getSelected();
+
+        map.put("sellerid", sellerid + "");
+
+        map.put("pid", pid + "");
+
+        map.put("num", number + "");
+
+        map.put("selected", selected + "");
+
+        map.put("uid", uid1 + "");
+
+        presenter.updateCaartPresenter(map);
+
+    }
+
+
 }
