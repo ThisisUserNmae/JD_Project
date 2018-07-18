@@ -337,7 +337,11 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
             for (int j = 0; j < childList.size(); j++) {
 
-                childList.get(j).setSelected(1);
+                if (childList.get(j).getSelected()==0){
+
+                    return false;
+
+                }
 
             }
 
@@ -347,6 +351,8 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
     }
 
     public void isShopsAndProductSelected(boolean b) {
+
+
 
 
     }

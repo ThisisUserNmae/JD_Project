@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.mvp.classify.view.fragment.ClassifyFragment;
+import com.bwei.jd_project.mvp.find.view.fragment.FindFragment;
 import com.bwei.jd_project.mvp.home.view.adapter.MyFragmentAdapter;
 import com.bwei.jd_project.mvp.home.view.fragment.HomeFragment;
 import com.bwei.jd_project.mvp.myinfo.view.fragment.MyInfoFragment;
@@ -43,8 +44,10 @@ public class HomeActivity extends AppCompatActivity {
 
         list.add(new HomeFragment());
         list.add(new ClassifyFragment());
+        list.add(new FindFragment());
         list.add(new ShoppingCarFragment());
         list.add(new MyInfoFragment());
+
 
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(), list);
 
@@ -67,18 +70,27 @@ public class HomeActivity extends AppCompatActivity {
 
                         break;
 
-                    case R.id.tab_nearby:
+                    case R.id.find:
 
                         mainViewPager.setCurrentItem(2);
 
                         break;
 
 
-                    case R.id.tab_friends:
+                    case R.id.tab_nearby:
 
                         mainViewPager.setCurrentItem(3);
 
                         break;
+
+
+                    case R.id.tab_friends:
+
+                        mainViewPager.setCurrentItem(4);
+
+                        break;
+
+
 
                 }
             }
@@ -102,19 +114,28 @@ public class HomeActivity extends AppCompatActivity {
 
                         break;
 
+
+                    case R.id.find:
+
+                        mainViewPager.setCurrentItem(2);
+
+                        break;
+
                     case R.id.tab_nearby:
 
 
-                        mainViewPager.setCurrentItem(2);
+                        mainViewPager.setCurrentItem(3);
 
                         break;
 
 
                     case R.id.tab_friends:
 
-                        mainViewPager.setCurrentItem(3);
+                        mainViewPager.setCurrentItem(4);
 
                         break;
+
+
 
                 }
 
@@ -142,17 +163,21 @@ public class HomeActivity extends AppCompatActivity {
 
                         bottomBar.selectTabWithId(R.id.tab_favorites);
 
-
                         break;
 
                     case 2:
 
-                        bottomBar.selectTabWithId(R.id.tab_nearby);
-
+                        bottomBar.selectTabWithId(R.id.find);
 
                         break;
 
                     case 3:
+
+                        bottomBar.selectTabWithId(R.id.tab_nearby);
+
+                        break;
+
+                    case 4:
 
                         bottomBar.selectTabWithId(R.id.tab_friends);
 

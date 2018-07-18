@@ -25,7 +25,7 @@ greendao {
     schemaVersion 1
     daoPackage 'com.bwei.jd_project.database'
     targetGenDir 'src/main/java' //设置DaoMaster、DaoSession、Dao目录
-     }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

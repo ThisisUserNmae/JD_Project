@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.base.BaseFragment;
 import com.bwei.jd_project.http.HttpConfig;
+import com.bwei.jd_project.mvp.classify.view.activity.ShowProductActivity;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
@@ -26,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> implements IShoppingCarView, View.OnClickListener {
-
 
     private CheckBox checkBoxAll;
 
@@ -45,7 +45,29 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     protected void initDatas() {
 
-        presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+        sharedPreferences = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
+
+        uid = sharedPreferences.getInt("uid", 1);
+
+        boolean isOn = sharedPreferences.getBoolean("isOn", false);
+
+        if (isOn) {
+
+            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+
+        } else {
+
+            Toast.makeText(getActivity(), "您请去登陆", Toast.LENGTH_SHORT).show();
+
+            if (shoppingCarShowExpandableListView != null) {
+
+                data.clear();
+
+                shoppingCarShowExpandableListView.notifyDataSetChanged();
+
+            }
+
+        }
 
     }
 
@@ -64,9 +86,8 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         checkBoxAll.setOnClickListener(this);
 
-        sharedPreferences = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
 
-        uid = sharedPreferences.getInt("uid", 1);
+
 
     }
 
@@ -135,7 +156,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                     shoppingCarShowExpandableListView.notifyDataSetChanged();
 
 
-                    refreshNumberStatusOnLine(groupPosition,childPosition,number);
+                    refreshNumberStatusOnLine(groupPosition, childPosition, number);
 
 
                     sumPriceAndNumber();
@@ -248,7 +269,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         if ("0".equals(code)) {
 
-            Toast.makeText(getActivity(), "修改购物车成功了", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "修改购物车成功了", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -270,13 +291,13 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
             //处理全选
             case R.id.CheckboxAll:
 
-                //boolean b = shoppingCarShowExpandableListView.AllShopsAndProductSelected();
+                boolean b = shoppingCarShowExpandableListView.AllShopsAndProductSelected();
 
-                //shoppingCarShowExpandableListView.isShopsAndProductSelected(!b);
+                shoppingCarShowExpandableListView.isShopsAndProductSelected(!b);
 
-                //shoppingCarShowExpandableListView.notifyDataSetChanged();
+                shoppingCarShowExpandableListView.notifyDataSetChanged();
 
-               // sumPriceAndNumber();
+                sumPriceAndNumber();
 
                 break;
         }

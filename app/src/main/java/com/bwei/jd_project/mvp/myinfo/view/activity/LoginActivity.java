@@ -110,6 +110,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if ("0".equals(code)){
 
+            Intent it = getIntent();
+
             //Toast.makeText(LoginActivity.this,"你的请求成功了",Toast.LENGTH_SHORT).show();
 
             LoginBean.DataBean data = loginBean.getData();
@@ -135,6 +137,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             edit.putString("icon",icon);
 
             edit.commit();
+
+            setResult(10,it);
 
             finish();
 

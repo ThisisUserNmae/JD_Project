@@ -118,7 +118,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
             banner.setPageTransformer(Transformer.Cube);
 
-            banner.setPageChangeDuration(3000);
+            banner.setPageChangeDuration(5000);
 
             AdBean.MiaoshaBean miaosha = adBean.getMiaosha();
 

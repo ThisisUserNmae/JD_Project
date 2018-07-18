@@ -29,7 +29,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initDatas();
+        if (presenter == null){
+
+            initDatas();
+
+        }
 
     }
 
@@ -43,12 +47,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (presenter != null && isVisibleToUser) {
+        if (isVisibleToUser && presenter !=null) {
 
             initDatas();
 
         } else {
-
             return;
         }
     }
