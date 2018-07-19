@@ -128,25 +128,25 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
 
             case R.id.ll_userBirthday_setting:
 
-                Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户生日", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户生日", Toast.LENGTH_SHORT).show();
 
                 break;
 
             case R.id.ll_gender_setting:
 
-                Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户性别", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户性别", Toast.LENGTH_SHORT).show();
 
                 break;
 
             case R.id.ll_nickName_setting:
 
-                Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户昵称", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户昵称", Toast.LENGTH_SHORT).show();
 
                 break;
 
             case R.id.ll_userName_setting:
 
-                Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户名字", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SettingMyInfoActivity.this, "您点击了修改用户名字", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -212,8 +212,6 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
         if (requestCode == 2000 && resultCode == RESULT_OK) {
             Bitmap bitmap = data.getParcelableExtra("data");
 
-
-
             File file = new File(getFilesDir().getAbsolutePath());
 
             if (!file.exists()) {
@@ -260,12 +258,12 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
 
         if ("0".equals(code)) {
 
-            Toast.makeText(SettingMyInfoActivity.this, "上传头像成功!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SettingMyInfoActivity.this, "上传头像成功!", Toast.LENGTH_SHORT).show();
 
             setUserPic.setImageURI(path);
         } else {
 
-            Toast.makeText(SettingMyInfoActivity.this, "上传头像失败,因为太丑!!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SettingMyInfoActivity.this, "上传头像失败,因为太丑!!!", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -274,7 +272,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
     @Override
     public void getError(Throwable throwable) {
 
-        Toast.makeText(SettingMyInfoActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(SettingMyInfoActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 }

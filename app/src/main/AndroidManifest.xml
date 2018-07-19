@@ -3,12 +3,9 @@
     package="com.bwei.jd_project">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.App"
@@ -30,7 +27,8 @@
         <activity android:name=".mvp.classify.view.activity.ShowProductActivity" />
         <activity android:name=".mvp.home.view.activity.SelectActivity" />
         <activity android:name=".mvp.myinfo.view.activity.LoginActivity" />
-        <activity android:name=".mvp.myinfo.view.activity.SettingMyInfoActivity"></activity>
+        <activity android:name=".mvp.myinfo.view.activity.SettingMyInfoActivity" />
+        <activity android:name=".mvp.shoppingcar.view.activity.ShowOrderActivity"></activity>
     </application>
 
 </manifest>

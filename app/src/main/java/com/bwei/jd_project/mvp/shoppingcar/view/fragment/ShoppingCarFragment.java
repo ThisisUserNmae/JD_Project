@@ -3,6 +3,7 @@ package com.bwei.jd_project.mvp.shoppingcar.view.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
@@ -14,16 +15,16 @@ import android.widget.Toast;
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.base.BaseFragment;
 import com.bwei.jd_project.http.HttpConfig;
-import com.bwei.jd_project.mvp.classify.view.activity.ShowProductActivity;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.presenter.ShoppingCarPresenter;
+import com.bwei.jd_project.mvp.shoppingcar.view.activity.ShowOrderActivity;
 import com.bwei.jd_project.mvp.shoppingcar.view.adapter.ShoppingCarShowExpandableListView;
 import com.bwei.jd_project.mvp.shoppingcar.view.iview.IShoppingCarView;
 
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     private List<ShoppingCarBean.DataBean> data;
     private int uid;
     private SharedPreferences sharedPreferences;
+    private double toalPrice1;
 
     @Override
     protected void initDatas() {
@@ -54,7 +56,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         if (isOn == true) {
 
-            Toast.makeText(getActivity(), "你进入了为true的方法", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "你进入了为true的方法", Toast.LENGTH_LONG).show();
 
             presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
@@ -62,9 +64,9 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             if (shoppingCarExpandableListView != null) {
 
-                data.clear();
+               // data.clear();
 
-                shoppingCarShowExpandableListView.notifyDataSetChanged();
+                //shoppingCarShowExpandableListView.notifyDataSetChanged();
 
             }
 
@@ -82,6 +84,8 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
         toalPrice = view.findViewById(R.id.toalPrice);
 
         toalNumber = view.findViewById(R.id.toalNumber);
+
+        toalNumber.setOnClickListener(this);
 
         presenter = new ShoppingCarPresenter(this);
 
@@ -196,7 +200,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            Toast.makeText(getActivity(), "您不能再点减了", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "您不能再点减了", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -220,13 +224,15 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         boolean currentCheckBoxSelected = shoppingCarShowExpandableListView.isCurrentCheckBoxSelected();
 
-        checkBoxAll.setSelected(currentCheckBoxSelected);
+        checkBoxAll.setChecked(currentCheckBoxSelected);
 
         int number = shoppingCarShowExpandableListView.sumAllNumber();
 
         toalNumber.setText("去结算(" + number + ")");
 
         double Price = shoppingCarShowExpandableListView.sumAllPrice();
+
+        toalPrice1 = Price;
 
         toalPrice.setText("总价: " + Price + "元");
 
@@ -262,7 +268,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         } else {
 
-            Toast.makeText(getActivity(), "删除失败了", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "删除失败了", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -272,8 +278,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     public void getDeleteCarError(Throwable throwable) {
 
-        Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -293,8 +298,35 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     public void getUpdateCartError(Throwable throwable) {
 
-        Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void getAddOrderSuccess(AddOrderBean addOrderBean) {
+
+        String code = addOrderBean.getCode();
+
+        if ("0".equals(code)){
+
+            //Toast.makeText(getActivity(),"创建订单成功",Toast.LENGTH_LONG).show();
+
+            Intent it = new Intent(getActivity(), ShowOrderActivity.class);
+
+            startActivity(it);
+
+        }else{
+
+            Toast.makeText(getActivity(),"创建订单失败",Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+    @Override
+    public void getAddOrderError(Throwable throwable) {
+
+        Toast.makeText(getActivity(),"创建订单失败",Toast.LENGTH_LONG).show();
 
     }
 
@@ -313,6 +345,36 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                 shoppingCarShowExpandableListView.notifyDataSetChanged();
 
                 sumPriceAndNumber();
+
+                break;
+
+            case R.id.toalNumber:
+
+                if (toalPrice1<1){
+
+                    Toast.makeText(getActivity(),"MMP,请您选中商品再结算",Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
+
+                    boolean isOn = sharedPreferences.getBoolean("isOn", false);
+
+                    if (isOn){
+
+                        //请求接口
+
+                        presenter.addOrderPresenter(uid,toalPrice1);
+
+
+
+                    }else{
+
+                        Toast.makeText(getActivity(),"请您先去登陆",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
 
                 break;
         }

@@ -163,7 +163,7 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
         childList = this.list.get(groupPosition).getList();
 
-        productViewHolder.productPrice.setText(childList.get(childPosition).getPrice() + "元");
+        productViewHolder.productPrice.setText(childList.get(childPosition).getBargainPrice() + "元");
 
         String[] split = childList.get(childPosition).getImages().split("\\|");
 
@@ -244,9 +244,9 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
             for (int j = 0; j < childlist.size(); j++) {
 
-                if (childlist.get(j).getSelected() == 1) {
+                if (childlist.get(j).getSelected() == 0) {
 
-                    return true;
+                    return false;
 
                 }
 
@@ -254,7 +254,7 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
         }
 
-        return false;
+        return true;
     }
 
     public int sumAllNumber() {
@@ -297,7 +297,7 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
 
                     int num = childlist.get(j).getNum();
 
-                    double price = childlist.get(j).getPrice();
+                    double price = childlist.get(j).getBargainPrice();
 
                     toalPrice += (num * price);
 
@@ -351,6 +351,18 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
     }
 
     public void isShopsAndProductSelected(boolean b) {
+
+        for (int i = 0; i < list.size(); i++) {
+
+            List<ShoppingCarBean.DataBean.ListBean> childList = list.get(i).getList();
+
+            for (int j = 0; j < childList.size(); j++) {
+
+                childList.get(j).setSelected(b ? 1 : 0);
+
+            }
+
+        }
 
 
     }

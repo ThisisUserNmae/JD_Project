@@ -10,12 +10,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.mvp.myinfo.view.activity.LoginActivity;
 import com.bwei.jd_project.mvp.myinfo.view.activity.SettingMyInfoActivity;
+import com.bwei.jd_project.mvp.shoppingcar.view.activity.ShowOrderActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 public class MyInfoFragment extends Fragment implements View.OnClickListener {
@@ -25,6 +27,8 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
     private TextView userName;
 
     private android.widget.ImageView userSet;
+
+    private TextView myOrder;
 
     private android.widget.ImageView myMsg;
 
@@ -41,7 +45,7 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
         if (sharedPreferences.getBoolean("isOn", false) == false) {
 
-            Toast.makeText(getActivity(), "请您先去登陆", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "请您先去登陆", Toast.LENGTH_SHORT).show();
 
             initViews();
 
@@ -59,7 +63,7 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
         //Toast.makeText(getActivity(),"请您先去登陆",Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getActivity(), "登陆完成", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "登陆完成", Toast.LENGTH_SHORT).show();
 
         String icon = sharedPreferences.getString("icon", "ddd");
 
@@ -76,6 +80,10 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
         myMsg = view.findViewById(R.id.myMsg);
 
         userSet = view.findViewById(R.id.userSet);
+
+        myOrder = view.findViewById(R.id.myOrder);
+
+        myOrder.setOnClickListener(this);
 
         userName = view.findViewById(R.id.userName);
 
@@ -95,6 +103,14 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.myMsg:
+
+                break;
+
+            case R.id.myOrder:
+
+                Intent it1 = new Intent(getActivity(), ShowOrderActivity.class);
+
+                startActivity(it1);
 
                 break;
 

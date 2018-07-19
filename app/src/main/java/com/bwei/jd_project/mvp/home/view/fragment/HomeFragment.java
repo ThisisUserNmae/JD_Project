@@ -202,7 +202,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
         } else {
 
-            Toast.makeText(getActivity(), "您失败了", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "您失败了", Toast.LENGTH_LONG).show();
 
         }
 

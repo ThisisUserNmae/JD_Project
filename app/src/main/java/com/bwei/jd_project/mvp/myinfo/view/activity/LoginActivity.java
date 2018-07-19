@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             String icon = data.getIcon();
 
-            Log.d(TAG, "getSuccess: "+icon.toString());
+            //Log.d(TAG, "getSuccess: "+icon.toString());
 
             String username = data.getUsername();
 

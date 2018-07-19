@@ -1,6 +1,7 @@
 package com.bwei.jd_project.mvp.shoppingcar.model.shoppingcarapi;
 
 import com.bwei.jd_project.http.HttpConfig;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -23,5 +25,8 @@ public interface ShoppingCarApi {
 
     @GET(HttpConfig.UPDATESHOPPINGCAR_URL)
     Observable<UpdateShoppingCarBean> updateCart(@QueryMap Map<String, String> map);
+
+    @GET()
+    Observable<AddOrderBean> addOrder(@Url String url);
 
 }

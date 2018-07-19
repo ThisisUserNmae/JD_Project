@@ -1,5 +1,6 @@
 package com.bwei.jd_project.mvp.shoppingcar.model;
 
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
@@ -28,6 +29,12 @@ public class ShoppingCarModel {
     public Observable<UpdateShoppingCarBean> updateCartModel(Map<String, String> map) {
 
         return RetrofitManager.getDefault().create(ShoppingCarApi.class).updateCart(map);
+
+    }
+
+    public Observable<AddOrderBean> addOrderModel(String url) {
+
+        return RetrofitManager.getDefault().create(ShoppingCarApi.class).addOrder(url);
 
     }
 

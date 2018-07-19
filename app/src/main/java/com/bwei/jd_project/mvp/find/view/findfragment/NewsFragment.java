@@ -99,7 +99,7 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
 
         if (error_code == 0) {
 
-            Toast.makeText(getActivity(), "新闻请求成功", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "新闻请求成功", Toast.LENGTH_SHORT).show();
 
             NewsBean.ResultBean result = newsBean.getResult();
 
@@ -115,7 +115,7 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
 
         } else {
 
-            Toast.makeText(getActivity(), "新闻请求失败", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "新闻请求失败", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -124,7 +124,7 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
     @Override
     public void getNewsError(Throwable throwable) {
 
-        Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -134,7 +134,7 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
 
         if (isVisibleToUser && boonAndNewsAndMenuPresenter != null) {
 
-            boonAndNewsAndMenuPresenter.newsPresenter(HttpConfig.NEWS_URL);
+           // boonAndNewsAndMenuPresenter.newsPresenter(HttpConfig.NEWS_URL);
 
         }
     }

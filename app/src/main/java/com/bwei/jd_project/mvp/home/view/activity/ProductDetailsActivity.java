@@ -61,7 +61,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
         pid = it.getIntExtra("pid", 1);
 
-        Log.d(TAG, "initViews: " + pid);
+        //Log.d(TAG, "initViews: " + pid);
 
         homeDetailsPresenter.showDetails(pid);
 
@@ -161,7 +161,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
                     Glide.with(ProductDetailsActivity.this).load(strings.get(position)).into((ImageView) view);
 
-                    Log.d(TAG, "loadBanner: 您进来了");
+                    //Log.d(TAG, "loadBanner: 您进来了");
 
                 }
             });
@@ -175,7 +175,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
         } else {
 
-            Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_LONG).show();
+            //Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_LONG).show();
 
         }
 
@@ -184,9 +184,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     @Override
     public void getError(Throwable throwable) {
 
-        Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_LONG).show();
 
-        Log.d(TAG, "getError: " + throwable.getMessage());
+        //Log.d(TAG, "getError: " + throwable.getMessage());
 
     }
 
@@ -200,7 +200,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
         } else {
 
-            Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -209,7 +209,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     @Override
     public void getAddShoppingCarError(Throwable throwable) {
 
-        Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 

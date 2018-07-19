@@ -106,6 +106,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/mydd"
                     android:gravity="center"
+                    android:id="@+id/myOrder"
                     android:text="我的订单"
                     android:textSize="20dp" />
 

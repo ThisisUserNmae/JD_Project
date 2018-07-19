@@ -6,6 +6,7 @@ import android.net.wifi.aware.PublishConfig;
 import com.bwei.jd_project.base.BasePresenter;
 import com.bwei.jd_project.http.HttpConfig;
 import com.bwei.jd_project.mvp.shoppingcar.model.ShoppingCarModel;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.UpdateShoppingCarBean;
@@ -152,6 +153,52 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingCarView> {
                         if (view != null) {
 
                             view.getUpdateCartError(throwable);
+
+                        }
+
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+
+                    }
+                }, new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                        compositeDisposable.add(disposable);
+
+                    }
+                });
+
+    }
+
+
+    @SuppressLint("CheckResult")
+    public void addOrderPresenter(int uid,double price){
+
+        shoppingCarModel.addOrderModel(HttpConfig.ADDRODER_URL+"?uid="+uid+"&price="+price)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AddOrderBean>() {
+                    @Override
+                    public void accept(AddOrderBean addOrderBean) throws Exception {
+
+                        if (view != null) {
+
+                            view.getAddOrderSuccess(addOrderBean);
+
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        if (view != null) {
+
+                            view.getAddOrderError(throwable);
 
                         }
 

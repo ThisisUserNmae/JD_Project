@@ -122,7 +122,8 @@ public class BoonFragment extends Fragment implements IBoonAndNewsAndMenuView {
 
         }*/
 
-        banner.setPageTransformer(Transformer.Rotate);
+
+        banner.setPageTransformer(Transformer.Accordion);
 
         // 设置XBanner页面切换的时间，即动画时长
         banner.setPageChangeDuration(4000);
