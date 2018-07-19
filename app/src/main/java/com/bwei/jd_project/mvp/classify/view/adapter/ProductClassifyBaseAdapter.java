@@ -43,15 +43,15 @@ public class ProductClassifyBaseAdapter extends BaseAdapter {
 
         ViewHolder viewHolder;
 
-        if (convertView == null){
+        if (convertView == null) {
             viewHolder = new ViewHolder();
 
-            convertView = View.inflate(context, R.layout.classify_name_item_layout,null);
+            convertView = View.inflate(context, R.layout.classify_name_item_layout, null);
 
             viewHolder.classifyName = convertView.findViewById(R.id.classifyName);
 
             convertView.setTag(viewHolder);
-        }else{
+        } else {
 
             viewHolder = (ViewHolder) convertView.getTag();
 
@@ -62,7 +62,7 @@ public class ProductClassifyBaseAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class ViewHolder{
+    class ViewHolder {
 
         TextView classifyName;
 

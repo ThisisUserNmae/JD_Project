@@ -50,9 +50,9 @@ public class ChildrenProductContentRecyclerView extends RecyclerView.Adapter<Chi
             @Override
             public void onClick(View v) {
 
-                if (setOnClickLisener!=null){
+                if (setOnClickLisener != null) {
 
-                    setOnClickLisener.OnClickListener(v,position);
+                    setOnClickLisener.OnClickListener(v, position);
 
                 }
 
@@ -63,9 +63,9 @@ public class ChildrenProductContentRecyclerView extends RecyclerView.Adapter<Chi
             @Override
             public void onClick(View v) {
 
-                if (setOnClickLisener!=null){
+                if (setOnClickLisener != null) {
 
-                    setOnClickLisener.OnClickListener(v,position);
+                    setOnClickLisener.OnClickListener(v, position);
 
                 }
 
@@ -76,7 +76,7 @@ public class ChildrenProductContentRecyclerView extends RecyclerView.Adapter<Chi
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 :list.size();
+        return list == null ? 0 : list.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -100,9 +100,9 @@ public class ChildrenProductContentRecyclerView extends RecyclerView.Adapter<Chi
         this.setOnClickLisener = setOnClickLisener;
     }
 
-    public interface setOnClickLisener{
+    public interface setOnClickLisener {
 
-        void OnClickListener(View view,int position);
+        void OnClickListener(View view, int position);
 
     }
 

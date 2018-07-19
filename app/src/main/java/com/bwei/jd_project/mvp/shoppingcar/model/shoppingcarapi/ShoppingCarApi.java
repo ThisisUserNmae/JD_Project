@@ -16,12 +16,12 @@ import retrofit2.http.Url;
 public interface ShoppingCarApi {
 
     @GET()
-    Observable<ShoppingCarBean> selectShoppingCar (@Url String url);
+    Observable<ShoppingCarBean> selectShoppingCar(@Url String url);
 
     @GET()
-    Observable<DeleteCartBean> deleteCart (@Url String url);
+    Observable<DeleteCartBean> deleteCart(@Url String url);
 
     @GET(HttpConfig.UPDATESHOPPINGCAR_URL)
-    Observable<UpdateShoppingCarBean> updateCart(@QueryMap Map<String,String> map);
+    Observable<UpdateShoppingCarBean> updateCart(@QueryMap Map<String, String> map);
 
 }

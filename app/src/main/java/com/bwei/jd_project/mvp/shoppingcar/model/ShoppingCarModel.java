@@ -13,19 +13,19 @@ import io.reactivex.Observable;
 
 public class ShoppingCarModel {
 
-    public Observable<ShoppingCarBean> selectShoppingCar(String url){
+    public Observable<ShoppingCarBean> selectShoppingCar(String url) {
 
         return RetrofitManager.getDefault().create(ShoppingCarApi.class).selectShoppingCar(url);
 
     }
 
-    public Observable<DeleteCartBean> deleteCart(String url){
+    public Observable<DeleteCartBean> deleteCart(String url) {
 
         return RetrofitManager.getDefault().create(ShoppingCarApi.class).deleteCart(url);
 
     }
 
-    public Observable<UpdateShoppingCarBean> updateCartModel(Map<String,String> map){
+    public Observable<UpdateShoppingCarBean> updateCartModel(Map<String, String> map) {
 
         return RetrofitManager.getDefault().create(ShoppingCarApi.class).updateCart(map);
 

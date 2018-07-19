@@ -61,7 +61,7 @@ public class ChildrenProductClassifyNameAndProductContent extends RecyclerView.A
 
                 if (onClickListener != null) {
 
-                    onClickListener.onClickListener(view,position);
+                    onClickListener.onClickListener(view, position);
 
                 }
 

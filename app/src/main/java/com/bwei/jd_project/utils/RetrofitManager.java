@@ -26,10 +26,9 @@ public class RetrofitManager {
                 .build();
 
 
-
     }
 
-    public static RetrofitManager getDefault(){
+    public static RetrofitManager getDefault() {
 
         return mRetrofitManager = new RetrofitManager(BASE_URL);
 
@@ -39,14 +38,14 @@ public class RetrofitManager {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(5000, TimeUnit.MILLISECONDS)
-                .writeTimeout(5000,TimeUnit.MILLISECONDS)
+                .writeTimeout(5000, TimeUnit.MILLISECONDS)
                 .connectTimeout(5000, TimeUnit.MILLISECONDS)
                 .build();
 
         return okHttpClient;
     }
 
-    public <T> T create(Class<T> Clazz){
+    public <T> T create(Class<T> Clazz) {
 
         return mRetrofit.create(Clazz);
 

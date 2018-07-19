@@ -100,11 +100,11 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
 
         String code = productCatagoryBean.getCode();
 
-        if ("0".equals(code)){
+        if ("0".equals(code)) {
 
             final List<ProductCatagoryBean.DataBean> data = productCatagoryBean.getData();
 
-            ChildrenProductClassifyNameAndProductContent childrenProductClassifyNameAndProductContent = new ChildrenProductClassifyNameAndProductContent(getActivity(),data);
+            ChildrenProductClassifyNameAndProductContent childrenProductClassifyNameAndProductContent = new ChildrenProductClassifyNameAndProductContent(getActivity(), data);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -122,9 +122,9 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
 
                     Intent it = new Intent(getActivity(), ShowProductActivity.class);
 
-                    Toast.makeText(getActivity(),pscid+"",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), pscid + "", Toast.LENGTH_SHORT).show();
 
-                    it.putExtra("pscid",pscid);
+                    it.putExtra("pscid", pscid);
 
                     startActivity(it);
 
@@ -132,9 +132,9 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
             });
 
 
-        }else{
+        } else {
 
-            Toast.makeText(getActivity(),"您的请求失败了",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "您的请求失败了", Toast.LENGTH_LONG).show();
 
         }
 
@@ -143,7 +143,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresneter> implements
     @Override
     public void getProductCatagoryError(Throwable throwable) {
 
-        Toast.makeText(getActivity(),throwable.getMessage(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), throwable.getMessage(), Toast.LENGTH_LONG).show();
 
     }
 

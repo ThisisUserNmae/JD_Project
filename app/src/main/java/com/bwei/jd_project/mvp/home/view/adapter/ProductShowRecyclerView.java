@@ -48,9 +48,9 @@ public class ProductShowRecyclerView extends RecyclerView.Adapter<ProductShowRec
             @Override
             public void onClick(View v) {
 
-                if (setOnClickListener!=null){
+                if (setOnClickListener != null) {
 
-                    setOnClickListener.onClickListener(v,position);
+                    setOnClickListener.onClickListener(v, position);
 
                 }
 
@@ -84,9 +84,9 @@ public class ProductShowRecyclerView extends RecyclerView.Adapter<ProductShowRec
         this.setOnClickListener = setOnClickListener;
     }
 
-    public interface setOnClickListener{
+    public interface setOnClickListener {
 
-        void onClickListener(View view,int position);
+        void onClickListener(View view, int position);
 
     }
 

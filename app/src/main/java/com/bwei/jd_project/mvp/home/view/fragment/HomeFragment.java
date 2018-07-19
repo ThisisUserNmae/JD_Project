@@ -34,6 +34,7 @@ import com.bwei.jd_project.mvp.home.view.adapter.ProductShowRecyclerView;
 import com.bwei.jd_project.mvp.home.view.iview.IHomeView;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.transformers.Transformer;
+import com.sunfusheng.marqueeview.MarqueeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     private android.support.v7.widget.RecyclerView mainRecyclerViewPhone;
 
     private MyGridView mainGridView;
+
+    private MarqueeView marqueeView;
 
     private EditText ed_click;
 
@@ -72,14 +75,35 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
         ed_click = view.findViewById(R.id.ed_click);
 
+        marqueeView = view.findViewById(R.id.marqueeView);
+
         ed_click.setOnClickListener(this);
 
         presenter = new HomePresenter(this);
+
+        List<String> info = new ArrayList<>();
+        info.add("夏季大甩卖,清凉特价！");
+        info.add("全场惊爆价大特卖,全部25元,全球最低的价格");
+        info.add("25元不算多,去不了香港到不了新加坡");
+        info.add("25元不算贵,不用回家去开家长会");
+        info.add("25元不算多,买不了房子.买不了车");
+        info.add("25元不咋的盖不到房子买不到地");
+        info.add("全部25元,全球最低的价格,机会难的数量不多");
+        info.add("走过路过,千万不要错过");
+        info.add("请想买的顾客抓紧时间抢购吧");
+        info.add("夏季大甩卖,清凉特价");
+        info.add("惊爆!!! 全场满1999元 获得商品一折优惠");
+        info.add("惊爆!!! 全场满5000元 获得一件大牌商品免费优惠");
+        info.add("你还在等什么???");
+        info.add("洗洗睡吧!!!");
+        // 在代码里设置自己的动画
+        marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
 
     }
 
     @Override
     protected int ByLayout() {
+
         return R.layout.home_fragment_layout;
     }
 
@@ -237,7 +261,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser && presenter != null) {
-
 
 
         } else {

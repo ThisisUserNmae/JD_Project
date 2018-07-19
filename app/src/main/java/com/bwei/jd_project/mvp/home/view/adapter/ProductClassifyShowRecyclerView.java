@@ -51,9 +51,9 @@ public class ProductClassifyShowRecyclerView extends RecyclerView.Adapter<Produc
             @Override
             public void onClick(View v) {
 
-                if (setOnClickListener !=null){
+                if (setOnClickListener != null) {
 
-                    setOnClickListener.OnClickListener(v,position);
+                    setOnClickListener.OnClickListener(v, position);
 
                 }
 
@@ -64,9 +64,9 @@ public class ProductClassifyShowRecyclerView extends RecyclerView.Adapter<Produc
             @Override
             public void onClick(View v) {
 
-                if (setOnClickListener !=null){
+                if (setOnClickListener != null) {
 
-                    setOnClickListener.OnClickListener(v,position);
+                    setOnClickListener.OnClickListener(v, position);
 
                 }
 
@@ -101,9 +101,9 @@ public class ProductClassifyShowRecyclerView extends RecyclerView.Adapter<Produc
         this.setOnClickListener = setOnClickListener;
     }
 
-    public interface setOnClickListener{
+    public interface setOnClickListener {
 
-        void OnClickListener(View view,int position);
+        void OnClickListener(View view, int position);
 
 
     }

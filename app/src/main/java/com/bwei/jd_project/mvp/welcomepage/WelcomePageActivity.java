@@ -46,7 +46,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                 myHandler.sendEmptyMessage(0);
 
             }
-        },0,1000);
+        }, 0, 1000);
 
     }
 
@@ -54,7 +54,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     }
 
-    class MyHandler extends Handler{
+    class MyHandler extends Handler {
 
         @Override
         public void handleMessage(Message msg) {
@@ -62,7 +62,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
             num--;
 
-            if (num==0){
+            if (num == 0) {
 
                 startActivity(new Intent(WelcomePageActivity.this, HomeActivity.class));
                 finish();

@@ -120,9 +120,9 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
                     String icon = sharedPreferences.getString("icon", "");
 
-                    it.putExtra("icon",icon);
+                    it.putExtra("icon", icon);
 
-                    startActivityForResult(it,1000);
+                    startActivityForResult(it, 1000);
 
                 }
 
@@ -143,13 +143,13 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
         }
         //注销登陆
-        if (requestCode == 1000 && resultCode == 100){
+        if (requestCode == 1000 && resultCode == 100) {
 
             initDatas();
 
         }
         //修改用户头像
-        if (requestCode == 1000 && resultCode == 20){
+        if (requestCode == 1000 && resultCode == 20) {
 
             initDatas();
 

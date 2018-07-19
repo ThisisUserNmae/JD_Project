@@ -25,18 +25,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (presenter == null){
-
-            initDatas();
-
-        }
-
-    }
-
     protected abstract void initDatas();
 
     protected abstract void initViews();
@@ -47,7 +35,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && presenter !=null) {
+        if (isVisibleToUser && presenter != null) {
 
             initDatas();
 

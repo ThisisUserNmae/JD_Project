@@ -1,49 +1,45 @@
-package com.bwei.jd_project.mvp.classify.presenter;
+package com.bwei.jd_project.mvp.find.presenter;
 
 import android.annotation.SuppressLint;
 
-import com.bwei.jd_project.base.BasePresenter;
-import com.bwei.jd_project.http.HttpConfig;
-import com.bwei.jd_project.mvp.classify.model.ClassifyModel;
-import com.bwei.jd_project.mvp.classify.model.bean.ProductCatagoryBean;
-import com.bwei.jd_project.mvp.classify.view.iview.IClassifyView;
-import com.bwei.jd_project.mvp.home.model.bean.CatagoryBean;
+import com.bwei.jd_project.mvp.find.model.BoonAndNewsAndMenuModel;
+import com.bwei.jd_project.mvp.find.model.bean.BoonBean;
+import com.bwei.jd_project.mvp.find.model.bean.NewsBean;
+import com.bwei.jd_project.mvp.find.view.iview.IBoonAndNewsAndMenuView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class ClassifyPresneter extends BasePresenter<IClassifyView> {
+public class BoonAndNewsAndMenuPresenter {
 
-    private ClassifyModel classifyModel;
+    private BoonAndNewsAndMenuModel findModel;
 
-    private IClassifyView iClassifyView;
+    private IBoonAndNewsAndMenuView iFindView;
 
-    public ClassifyPresneter(IClassifyView view) {
-        super(view);
-        classifyModel = new ClassifyModel();
-    }
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    @Override
-    protected void initModel() {
-
+    public BoonAndNewsAndMenuPresenter(IBoonAndNewsAndMenuView iFindView) {
+        findModel = new BoonAndNewsAndMenuModel();
+        this.iFindView = iFindView;
     }
 
     @SuppressLint("CheckResult")
-    public void classifySelect(String url) {
+    public void boonPresenter(String url) {
 
-        classifyModel.classifySelect(url)
+        findModel.boonModel(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CatagoryBean>() {
+                .subscribe(new Consumer<BoonBean>() {
                     @Override
-                    public void accept(CatagoryBean catagoryBean) throws Exception {
+                    public void accept(BoonBean boonBean) throws Exception {
 
-                        if (view != null) {
+                        if (iFindView != null) {
 
-                            view.getSuccess(catagoryBean);
+                            iFindView.getBoonSuccess(boonBean);
 
                         }
 
@@ -52,9 +48,9 @@ public class ClassifyPresneter extends BasePresenter<IClassifyView> {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        if (view != null) {
+                        if (iFindView != null) {
 
-                            view.getError(throwable);
+                            iFindView.getBoonError(throwable);
 
                         }
 
@@ -75,20 +71,20 @@ public class ClassifyPresneter extends BasePresenter<IClassifyView> {
 
     }
 
+
     @SuppressLint("CheckResult")
-    public void childrenClassifySelect(int cid) {
+    public void newsPresenter(String url) {
 
-
-        classifyModel.childClassifySelect(HttpConfig.CHILDRENCLASSIFY_URL + "?cid=" + cid)
+        findModel.newsModel(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ProductCatagoryBean>() {
+                .subscribe(new Consumer<NewsBean>() {
                     @Override
-                    public void accept(ProductCatagoryBean productCatagoryBean) throws Exception {
+                    public void accept(NewsBean newsBean) throws Exception {
 
-                        if (view != null) {
+                        if (iFindView != null) {
 
-                            view.getProductCatagorySuccess(productCatagoryBean);
+                            iFindView.getNewsSuccess(newsBean);
 
                         }
 
@@ -97,9 +93,9 @@ public class ClassifyPresneter extends BasePresenter<IClassifyView> {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        if (view != null) {
+                        if (iFindView != null) {
 
-                            view.getProductCatagoryError(throwable);
+                            iFindView.getNewsError(throwable);
 
                         }
 
@@ -113,10 +109,25 @@ public class ClassifyPresneter extends BasePresenter<IClassifyView> {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
 
+
                         compositeDisposable.add(disposable);
 
                     }
                 });
+
+
+    }
+
+
+    public void onDestory() {
+
+        if (iFindView != null) {
+
+            iFindView = null;
+
+        }
+
+        compositeDisposable.clear();
 
     }
 

@@ -21,11 +21,10 @@ public class HttpConfig {
 
     public final static String SEARCHKEYWORD_URL = "https://www.zhaoapi.cn/product/searchProducts?page=1&keywords=";
 
-
     public final static String UPDATESHOPPINGCAR_URL = "product/updateCartsproduct/updateCarts";
 
+    public final static String BOON_URL = "http://gank.io/api/data/福利/10/";
 
-
-
+    public final static String NEWS_URL = "http://v.juhe.cn/toutiao/index?type=top&key=218adf1d15a36b27c3cef5a30727906d";
 
 }

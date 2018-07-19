@@ -77,20 +77,42 @@
 
             </LinearLayout>
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="#A9A9A9"
-                android:text="dddddddd"
-                android:gravity="center"
-                />
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="京东快报"
+                    android:textSize="15dp"
+
+                    />
+
+                <com.sunfusheng.marqueeview.MarqueeView
+                    android:id="@+id/marqueeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    app:mvAnimDuration="1000"
+                    app:mvDirection="bottom_to_top"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    app:mvInterval="3000"
+                    app:mvTextColor="#f00"
+                    app:mvTextSize="15sp"
+                    app:mvSingleLine="true"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 >
-
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -110,6 +132,7 @@
 
             <com.bwei.jd_project.mvp.home.model.MyGridView
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
                 android:id="@+id/mainGridView"
                 android:numColumns="2"

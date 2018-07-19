@@ -29,9 +29,9 @@ public class ClassifyShowProductPresenter {
     }
 
     @SuppressLint("CheckResult")
-    public void showProduct(int pscid,String sort) {
+    public void showProduct(int pscid, String sort) {
 
-        classifyShowProductModel.showProductModel(HttpConfig.SHOWCHILDRENPRODUCT_URL+pscid+"&sort="+sort)
+        classifyShowProductModel.showProductModel(HttpConfig.SHOWCHILDRENPRODUCT_URL + pscid + "&sort=" + sort)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ShowProductBean>() {

@@ -47,7 +47,7 @@ public class SelectKeyWrodRecyclerView extends RecyclerView.Adapter<SelectKeyWro
 
                 if (onClickListener != null) {
 
-                    onClickListener.OnClick(v,position);
+                    onClickListener.OnClick(v, position);
 
                 }
 

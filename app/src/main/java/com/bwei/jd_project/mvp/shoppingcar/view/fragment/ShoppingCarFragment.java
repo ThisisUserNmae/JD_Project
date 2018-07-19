@@ -23,6 +23,7 @@ import com.bwei.jd_project.mvp.shoppingcar.view.adapter.ShoppingCarShowExpandabl
 import com.bwei.jd_project.mvp.shoppingcar.view.iview.IShoppingCarView;
 
 import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Map;
 
@@ -51,15 +52,15 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         boolean isOn = sharedPreferences.getBoolean("isOn", false);
 
-        if (isOn) {
+        if (isOn == true) {
+
+            Toast.makeText(getActivity(), "你进入了为true的方法", Toast.LENGTH_LONG).show();
 
             presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
         } else {
 
-            Toast.makeText(getActivity(), "您请去登陆", Toast.LENGTH_SHORT).show();
-
-            if (shoppingCarShowExpandableListView != null) {
+            if (shoppingCarExpandableListView != null) {
 
                 data.clear();
 
@@ -86,7 +87,11 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         checkBoxAll.setOnClickListener(this);
 
+        if (presenter == null) {
 
+            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+
+        }
 
 
     }
@@ -110,6 +115,8 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
             shoppingCarShowExpandableListView = new ShoppingCarShowExpandableListView(getActivity(), data);
 
             shoppingCarExpandableListView.setAdapter(shoppingCarShowExpandableListView);
+
+            sumPriceAndNumber();
 
             shoppingCarExpandableListView.setGroupIndicator(null);
 
@@ -155,13 +162,10 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                     shoppingCarShowExpandableListView.notifyDataSetChanged();
 
-
                     refreshNumberStatusOnLine(groupPosition, childPosition, number);
-
 
                     sumPriceAndNumber();
                 }
-
 
             });
 
@@ -181,6 +185,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                     alert.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
 
                             presenter.deleteCart(uid, pid);
 
@@ -230,6 +235,14 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     public void getError(Throwable throwable) {
 
+        if (shoppingCarShowExpandableListView != null) {
+
+            data.clear();
+
+            shoppingCarShowExpandableListView.notifyDataSetChanged();
+
+        }
+
     }
 
     //处理删除成功数据的回调
@@ -251,6 +264,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             Toast.makeText(getActivity(), "删除失败了", Toast.LENGTH_SHORT).show();
 
+
         }
 
     }
@@ -259,6 +273,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     public void getDeleteCarError(Throwable throwable) {
 
         Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+
 
     }
 

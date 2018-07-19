@@ -45,7 +45,7 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
 
         holder.showDetailsTitle.setText(data.getTitle());
 
-        holder.showDetailsPrice.setText("现价: "+data.getPrice()+"元");
+        holder.showDetailsPrice.setText("现价: " + data.getPrice() + "元");
 
         holder.showDetailsShopsName.setText(seller.getName());
 
@@ -54,9 +54,9 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
             @Override
             public void onClick(View v) {
 
-                if (onAddShoppingCarClickLiener!=null){
+                if (onAddShoppingCarClickLiener != null) {
 
-                    onAddShoppingCarClickLiener.OnClickListener(v,position);
+                    onAddShoppingCarClickLiener.OnClickListener(v, position);
 
                 }
 
@@ -108,9 +108,9 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
         this.onAddShoppingCarClickLiener = onAddShoppingCarClickLiener;
     }
 
-    public interface OnAddShoppingCarClickLiener{
+    public interface OnAddShoppingCarClickLiener {
 
-        void OnClickListener(View view,int position);
+        void OnClickListener(View view, int position);
 
 
     }

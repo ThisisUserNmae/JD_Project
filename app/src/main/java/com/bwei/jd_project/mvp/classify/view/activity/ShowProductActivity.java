@@ -19,7 +19,7 @@ import com.bwei.jd_project.mvp.home.view.activity.ProductDetailsActivity;
 
 import java.util.List;
 
-public class ShowProductActivity extends AppCompatActivity implements View.OnClickListener ,IClassifyShowProductView{
+public class ShowProductActivity extends AppCompatActivity implements View.OnClickListener, IClassifyShowProductView {
 
     private android.widget.TextView btn1;
 
@@ -57,7 +57,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
     private void initDatas() {
 
-        classifyShowProductPresenter.showProduct(pscid,"0");
+        classifyShowProductPresenter.showProduct(pscid, "0");
 
     }
 
@@ -88,19 +88,19 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.btn1:
 
-                classifyShowProductPresenter.showProduct(pscid,"0");
+                classifyShowProductPresenter.showProduct(pscid, "0");
 
                 break;
 
             case R.id.btn2:
 
-                classifyShowProductPresenter.showProduct(pscid,"1");
+                classifyShowProductPresenter.showProduct(pscid, "1");
 
                 break;
 
             case R.id.btn3:
 
-                classifyShowProductPresenter.showProduct(pscid,"2");
+                classifyShowProductPresenter.showProduct(pscid, "2");
 
                 break;
 
@@ -113,11 +113,11 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
         String code = showProductBean.getCode();
 
-        if ("0".equals(code)){
+        if ("0".equals(code)) {
 
             final List<ShowProductBean.DataBean> data = showProductBean.getData();
 
-            ShowProductRecyclerView showProductRecyclerView = new ShowProductRecyclerView(ShowProductActivity.this,data);
+            ShowProductRecyclerView showProductRecyclerView = new ShowProductRecyclerView(ShowProductActivity.this, data);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ShowProductActivity.this);
 
@@ -133,16 +133,16 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
                     Intent it = new Intent(ShowProductActivity.this, ProductDetailsActivity.class);
 
-                    it.putExtra("pid",pid);
+                    it.putExtra("pid", pid);
 
                     startActivity(it);
 
                 }
             });
 
-        }else{
+        } else {
 
-            Toast.makeText(ShowProductActivity.this,"您的展示商品的请求失败了",Toast.LENGTH_LONG).show();
+            Toast.makeText(ShowProductActivity.this, "您的展示商品的请求失败了", Toast.LENGTH_LONG).show();
 
         }
 
