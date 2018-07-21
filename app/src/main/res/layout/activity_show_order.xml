@@ -7,10 +7,68 @@
     tools:context=".mvp.shoppingcar.view.activity.ShowOrderActivity"
     android:orientation="vertical"
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/showOrderLinearLayout"
+        android:orientation="horizontal"
+
+        android:background="#f00000"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dddddddd"
+            android:id="@+id/orderAddr"
+            android:textColor="#F0F8FF"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待支付"
+            android:id="@+id/waitPay"
+            android:textSize="25dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已支付"
+            android:id="@+id/yetPay"
+            android:textSize="25dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已取消"
+            android:id="@+id/cancelPay"
+            android:textSize="25dp"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
         android:layout_height="match_parent"
         android:id="@+id/showOrderRecyclerView"
-        ></com.jcodecraeer.xrecyclerview.XRecyclerView>
+        />
 
 </LinearLayout>

@@ -34,7 +34,6 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
 
         MyViewHolder myViewHolder = new MyViewHolder(inflate);
 
-
         return myViewHolder;
     }
 
@@ -45,10 +44,24 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
 
         holder.showDetailsTitle.setText(data.getTitle());
 
-        holder.showDetailsPrice.setText("现价: " + data.getPrice() + "元");
+        final double bargainPrice = data.getBargainPrice();
+
+        holder.showDetailsPrice.setText("现价: " + bargainPrice + "元");
 
         holder.showDetailsShopsName.setText(seller.getName());
 
+        holder.showDetailsBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (createOrderClickListener !=null){
+
+                    createOrderClickListener.onClick(v,position,bargainPrice);
+
+                }
+
+            }
+        });
 
         holder.showDetailsAddShoppingCar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +75,6 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
 
             }
         });
-
 
     }
 
@@ -83,7 +95,6 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
         public MyViewHolder(View itemView) {
             super(itemView);
 
-
             showDetailsTitle = itemView.findViewById(R.id.showDetailsTitle);
 
             showDetailsShopsName = itemView.findViewById(R.id.showDetailsShopsName);
@@ -94,13 +105,11 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
 
             showDetailsAddShoppingCar = itemView.findViewById(R.id.showDetailsAddShoppingCar);
 
-            showDetailsBuy = itemView.findViewById(R.id.showDetailsContent);
-
+            showDetailsBuy = itemView.findViewById(R.id.showDetailsBuy);
 
         }
 
     }
-
 
     OnAddShoppingCarClickLiener onAddShoppingCarClickLiener;
 
@@ -112,6 +121,18 @@ public class ShowProductDetailsRecyclerView extends RecyclerView.Adapter<ShowPro
 
         void OnClickListener(View view, int position);
 
+    }
+
+    CreateOrderClickListener createOrderClickListener;
+
+    public void setCreateOrderClickListener(CreateOrderClickListener createOrderClickListener) {
+        this.createOrderClickListener = createOrderClickListener;
+    }
+
+    public interface CreateOrderClickListener{
+
+        void onClick(View view,int position,double price);
 
     }
+
 }

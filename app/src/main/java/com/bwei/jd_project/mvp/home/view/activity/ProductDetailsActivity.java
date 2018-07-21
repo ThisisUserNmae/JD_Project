@@ -17,11 +17,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bwei.jd_project.R;
 import com.bwei.jd_project.mvp.home.model.bean.AddShoppingCarBean;
+import com.bwei.jd_project.mvp.home.model.bean.ProductDetailsCreateOrderBean;
 import com.bwei.jd_project.mvp.home.model.bean.ShowDetailsBean;
 import com.bwei.jd_project.mvp.home.presenter.HomeDetailsPresenter;
 import com.bwei.jd_project.mvp.home.view.adapter.ShowProductDetailsRecyclerView;
 import com.bwei.jd_project.mvp.home.view.iview.IHomeShowDetailsView;
 import com.bwei.jd_project.mvp.myinfo.view.activity.LoginActivity;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
+import com.bwei.jd_project.mvp.shoppingcar.view.activity.ShowOrderActivity;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.transformers.Transformer;
 
@@ -42,6 +45,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     private android.support.v7.widget.RecyclerView showDetailsRecyclerView;
 
     List<String> titles = new ArrayList<>();
+
     private ShowDetailsBean.DataBean data;
 
     @Override
@@ -78,7 +82,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     }
 
     @Override
-    public void getSuccess(ShowDetailsBean showDetailsBean) {
+    public void getSuccess(final ShowDetailsBean showDetailsBean) {
 
         String code = showDetailsBean.getCode();
 
@@ -95,6 +99,33 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
             showDetailsRecyclerView.setLayoutManager(linearLayoutManager);
 
             showDetailsRecyclerView.setAdapter(showProductDetailsRecyclerView);
+
+            showProductDetailsRecyclerView.setCreateOrderClickListener(new ShowProductDetailsRecyclerView.CreateOrderClickListener() {
+                @Override
+                public void onClick(View view, int position,double price) {
+
+                    //Toast.makeText(ProductDetailsActivity.this,"您点击了购买按钮",Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("uid", MODE_PRIVATE);
+
+                    boolean isOn = sharedPreferences.getBoolean("isOn", false);
+
+                    if (isOn){
+
+                        int uid = sharedPreferences.getInt("uid", 1);
+
+                        Log.d(TAG, "onClick: uid"+uid+"   price"+price);
+
+                        homeDetailsPresenter.addOrder(uid,price);
+
+                    }else{
+
+                        Toast.makeText(ProductDetailsActivity.this,"您还没有登录",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+            });
 
             showProductDetailsRecyclerView.setOnAddShoppingCarClickLiener(new ShowProductDetailsRecyclerView.OnAddShoppingCarClickLiener() {
                 @Override
@@ -210,6 +241,37 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     public void getAddShoppingCarError(Throwable throwable) {
 
         //Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void getAddOrderSuccess(ProductDetailsCreateOrderBean productDetailsCreateOrderBean) {
+
+
+        String code = productDetailsCreateOrderBean.getCode();
+
+        if ("0".equals(code)){
+
+            Intent it = new Intent(ProductDetailsActivity.this, ShowOrderActivity.class);
+
+            startActivity(it);
+
+        }else{
+
+            String msg = productDetailsCreateOrderBean.getMsg();
+
+            Log.d(TAG, "getAddOrderSuccess: msg"+msg);
+
+            Toast.makeText(ProductDetailsActivity.this,"你创建订单出错啦",Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    @Override
+    public void getAddOrderError(Throwable throwable) {
+
+        Toast.makeText(ProductDetailsActivity.this,""+throwable.getMessage(),Toast.LENGTH_SHORT).show();
 
     }
 

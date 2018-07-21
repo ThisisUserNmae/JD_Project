@@ -31,6 +31,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
 
     protected abstract int ByLayout();
 
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

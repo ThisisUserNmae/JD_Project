@@ -1,7 +1,9 @@
 package com.bwei.jd_project.mvp.shoppingcar.view.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShowOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.view.MyView;
 
 import java.util.List;
+
+import static com.bwei.jd_project.R.drawable.over;
 
 public class OrderRecyclerView extends RecyclerView.Adapter<OrderRecyclerView.MyViewHolder>{
 
@@ -38,13 +42,15 @@ public class OrderRecyclerView extends RecyclerView.Adapter<OrderRecyclerView.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.orderTime.setText(list.get(position).getCreatetime());
 
         holder.orderTitle.setText(list.get(position).getTitle());
 
         holder.orderToalPrice.setText(list.get(position).getPrice()+" 元");
+
+        holder.orderToalPrice.setTextColor(Color.RED);
 
         int status = list.get(position).getStatus();
 
@@ -56,6 +62,11 @@ public class OrderRecyclerView extends RecyclerView.Adapter<OrderRecyclerView.My
 
         if (status == 1){
 
+            Resources resources=context.getResources();
+            Drawable drawable=resources.getDrawable(R.drawable.over);
+
+            holder.orderStatus.setBackgroundDrawable(drawable);
+
             holder.orderStatus.setText("已支付");
 
         }
@@ -66,6 +77,58 @@ public class OrderRecyclerView extends RecyclerView.Adapter<OrderRecyclerView.My
             holder.orderStatus.setTextColor(Color.RED);
 
         }
+
+        holder.orderStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener !=null){
+
+                    onClickListener.OnClick(v,position);
+
+                }
+
+            }
+        });
+
+        holder.orderTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener !=null){
+
+                    onClickListener.OnClick(v,position);
+
+                }
+
+            }
+        });
+
+        holder.orderTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener !=null){
+
+                    onClickListener.OnClick(v,position);
+
+                }
+
+            }
+        });
+
+        holder.orderToalPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (onClickListener !=null){
+
+                    onClickListener.OnClick(v,position);
+
+                }
+
+            }
+        });
 
     }
 
@@ -91,4 +154,17 @@ public class OrderRecyclerView extends RecyclerView.Adapter<OrderRecyclerView.My
 
         }
     }
+
+    OnClickListener onClickListener;
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener{
+
+        void OnClick(View view,int position);
+
+    }
+
 }

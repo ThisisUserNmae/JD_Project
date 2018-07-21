@@ -15,7 +15,7 @@
             android:id="@+id/userPic"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:placeholderImage="@drawable/ic_launcher_background"
+            app:placeholderImage="@drawable/user"
             app:roundAsCircle="true" />
 
         <TextView

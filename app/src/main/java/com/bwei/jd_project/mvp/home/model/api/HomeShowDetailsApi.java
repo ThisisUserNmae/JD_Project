@@ -1,6 +1,7 @@
 package com.bwei.jd_project.mvp.home.model.api;
 
 import com.bwei.jd_project.mvp.home.model.bean.AddShoppingCarBean;
+import com.bwei.jd_project.mvp.home.model.bean.ProductDetailsCreateOrderBean;
 import com.bwei.jd_project.mvp.home.model.bean.ShowDetailsBean;
 
 import io.reactivex.Observable;
@@ -14,5 +15,8 @@ public interface HomeShowDetailsApi {
 
     @GET()
     Observable<AddShoppingCarBean> addShoppingCar(@Url String url);
+
+    @GET()
+    Observable<ProductDetailsCreateOrderBean> addOrder(@Url String url);
 
 }

@@ -1,5 +1,6 @@
 package com.bwei.jd_project.mvp.shoppingcar.model;
 
+import com.bwei.jd_project.mvp.home.model.bean.ProductDetailsCreateOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.DeleteCartBean;
 import com.bwei.jd_project.mvp.shoppingcar.model.bean.ShoppingCarBean;

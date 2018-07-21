@@ -28,7 +28,9 @@
         <activity android:name=".mvp.home.view.activity.SelectActivity" />
         <activity android:name=".mvp.myinfo.view.activity.LoginActivity" />
         <activity android:name=".mvp.myinfo.view.activity.SettingMyInfoActivity" />
-        <activity android:name=".mvp.shoppingcar.view.activity.ShowOrderActivity"></activity>
+        <activity android:name=".mvp.shoppingcar.view.activity.ShowOrderActivity" />
+        <activity android:name=".mvp.shoppingcar.view.activity.CommonAddressActivity" />
+        <activity android:name=".mvp.shoppingcar.view.activity.AddCommonAddressActivity"></activity>
     </application>
 
 </manifest>

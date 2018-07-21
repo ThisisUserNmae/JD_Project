@@ -5,9 +5,12 @@ import android.annotation.SuppressLint;
 import com.bwei.jd_project.http.HttpConfig;
 import com.bwei.jd_project.mvp.home.model.HomeShowDetailsModel;
 import com.bwei.jd_project.mvp.home.model.bean.AddShoppingCarBean;
+import com.bwei.jd_project.mvp.home.model.bean.ProductDetailsCreateOrderBean;
 import com.bwei.jd_project.mvp.home.model.bean.ShowDetailsBean;
 import com.bwei.jd_project.mvp.home.view.iview.IHomeShowDetailsView;
+import com.bwei.jd_project.mvp.shoppingcar.model.bean.AddOrderBean;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -31,7 +34,7 @@ public class HomeDetailsPresenter {
     @SuppressLint("CheckResult")
     public void showDetails(int pid) {
 
-        homeShowDetailsModel.showDetailsModel(HttpConfig.SHOWPRODUCTDETAILS_URL+pid)
+        homeShowDetailsModel.showDetailsModel(HttpConfig.SHOWPRODUCTDETAILS_URL + pid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ShowDetailsBean>() {
@@ -73,16 +76,16 @@ public class HomeDetailsPresenter {
     }
 
     @SuppressLint("CheckResult")
-    public void addShoppingCarPresenter(int uid, int pid){
+    public void addShoppingCarPresenter(int uid, int pid) {
 
-        homeShowDetailsModel.addShoppingCar(HttpConfig.ADDSHOPPINGCAR_URL+uid+"&pid="+pid)
+        homeShowDetailsModel.addShoppingCar(HttpConfig.ADDSHOPPINGCAR_URL + uid + "&pid=" + pid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<AddShoppingCarBean>() {
                     @Override
                     public void accept(AddShoppingCarBean addShoppingCarBean) throws Exception {
 
-                        if (iHomeShowDetailsView!=null){
+                        if (iHomeShowDetailsView != null) {
 
                             iHomeShowDetailsView.getAddShoppingCarSuccess(addShoppingCarBean);
 
@@ -93,7 +96,7 @@ public class HomeDetailsPresenter {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        if (iHomeShowDetailsView!=null){
+                        if (iHomeShowDetailsView != null) {
 
                             iHomeShowDetailsView.getAddShoppingCarError(throwable);
 
@@ -109,14 +112,58 @@ public class HomeDetailsPresenter {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
 
+                        compositeDisposable.add(disposable);
+
                     }
                 });
 
     }
 
 
+    @SuppressLint("CheckResult")
+    public void addOrder(int uid, double price) {
+
+        homeShowDetailsModel.addOrder(HttpConfig.PRODUCTDETAILSADDRODER_URL + "?uid=" + uid + "&price=" + price)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ProductDetailsCreateOrderBean>() {
+                    @Override
+                    public void accept(ProductDetailsCreateOrderBean productDetailsCreateOrderBean) throws Exception {
+
+                        if (iHomeShowDetailsView != null) {
+
+                            iHomeShowDetailsView.getAddOrderSuccess(productDetailsCreateOrderBean);
+
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        if (iHomeShowDetailsView != null) {
+
+                            iHomeShowDetailsView.getAddOrderError(throwable);
+
+                        }
+
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                }, new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                        compositeDisposable.add(disposable);
+
+                    }
+                });
 
 
+    }
 
     public void onDestory() {
 

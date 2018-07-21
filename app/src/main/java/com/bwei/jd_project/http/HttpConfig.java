@@ -32,4 +32,15 @@ public class HttpConfig {
 
     public final static String SHOWORDER_URL = "https://www.zhaoapi.cn/product/getOrders?";
 
+    public final static String UPDATEORDER_URL = "product/updateOrder";
+
+    public final static String DEFAULTADDRESS_URL = "user/getDefaultAddr";
+
+    public final static String COMMONADDRESS_URL = "user/getAddrs";
+
+    public final static String UPDATEDEFAULTADDRESS_UTL = "user/setAddr";
+
+    public final static String PRODUCTDETAILSADDRODER_URL = "https://www.zhaoapi.cn/product/createOrder";
+
+
 }

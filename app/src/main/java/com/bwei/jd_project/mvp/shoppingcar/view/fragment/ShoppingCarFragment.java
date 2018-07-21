@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,6 +30,9 @@ import java.util.List;
 import java.util.Map;
 
 public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> implements IShoppingCarView, View.OnClickListener {
+
+
+    private static final String TAG = "ShoppingCarFragment";
 
     private CheckBox checkBoxAll;
 
@@ -62,11 +66,11 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         } else {
 
-            if (shoppingCarExpandableListView != null) {
+            if (data != null) {
 
-               // data.clear();
+                data.clear();
 
-                //shoppingCarShowExpandableListView.notifyDataSetChanged();
+                shoppingCarShowExpandableListView.notifyDataSetChanged();
 
             }
 
@@ -83,17 +87,27 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         toalPrice = view.findViewById(R.id.toalPrice);
 
+        presenter = new ShoppingCarPresenter(this);
+
         toalNumber = view.findViewById(R.id.toalNumber);
 
         toalNumber.setOnClickListener(this);
 
-        presenter = new ShoppingCarPresenter(this);
-
         checkBoxAll.setOnClickListener(this);
 
-        if (presenter == null) {
+        if (presenter == null){
 
-            presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+            if (uid == 1){
+
+                Toast.makeText(getActivity(),"请您去登陆",Toast.LENGTH_SHORT).show();
+
+            }else{
+
+                presenter = new ShoppingCarPresenter(this);
+
+                presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
+
+            }
 
         }
 
@@ -261,7 +275,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             //Toast.makeText(getActivity(),"删除成功了",Toast.LENGTH_SHORT).show();
             //查询购物车
-
+ 
             presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
             shoppingCarShowExpandableListView.notifyDataSetChanged();
@@ -365,8 +379,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
                         //请求接口
 
                         presenter.addOrderPresenter(uid,toalPrice1);
-
-
+                        Log.d(TAG, "onClick: price"+toalPrice1);
 
                     }else{
 
