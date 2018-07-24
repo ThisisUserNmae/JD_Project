@@ -99,7 +99,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             if (uid == 1){
 
-                Toast.makeText(getActivity(),"请您去登陆",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"亲,你要先去登陆哦!",Toast.LENGTH_SHORT).show();
 
             }else{
 
@@ -259,6 +259,10 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
             data.clear();
 
+
+
+            sumPriceAndNumber();
+
             shoppingCarShowExpandableListView.notifyDataSetChanged();
 
         }
@@ -278,11 +282,13 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
  
             presenter.selectShoppingCar(HttpConfig.SHOPPINGCAR_URL + uid);
 
+            sumPriceAndNumber();
+
             shoppingCarShowExpandableListView.notifyDataSetChanged();
 
         } else {
 
-            //Toast.makeText(getActivity(), "删除失败了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "服务器繁忙...", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -293,7 +299,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     public void getDeleteCarError(Throwable throwable) {
 
         //Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-
+        //checkBoxAll.setChecked(false);
     }
 
     @Override
@@ -331,7 +337,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
         }else{
 
-            Toast.makeText(getActivity(),"创建订单失败",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"服务器繁忙...",Toast.LENGTH_LONG).show();
 
         }
 
@@ -340,7 +346,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     @Override
     public void getAddOrderError(Throwable throwable) {
 
-        Toast.makeText(getActivity(),"创建订单失败",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"服务器繁忙...",Toast.LENGTH_LONG).show();
 
     }
 
@@ -356,9 +362,10 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                 shoppingCarShowExpandableListView.isShopsAndProductSelected(!b);
 
+                sumPriceAndNumber();
+
                 shoppingCarShowExpandableListView.notifyDataSetChanged();
 
-                sumPriceAndNumber();
 
                 break;
 
@@ -366,7 +373,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                 if (toalPrice1<1){
 
-                    Toast.makeText(getActivity(),"MMP,请您选中商品再结算",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"亲,选中商品才能结算哦",Toast.LENGTH_SHORT).show();
 
                 }else{
 
@@ -383,7 +390,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
                     }else{
 
-                        Toast.makeText(getActivity(),"请您先去登陆",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"亲,你要先去登陆哦!",Toast.LENGTH_SHORT).show();
 
                     }
 

@@ -71,6 +71,10 @@ public class ShowOrderActivity extends AppCompatActivity implements IShowOrderVi
 
             showOrderPresenter.defaultAddressPresenter(uid);
 
+        }else{
+
+            Toast.makeText(ShowOrderActivity.this,"亲,你要先去登陆哦!",Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -240,7 +244,7 @@ public class ShowOrderActivity extends AppCompatActivity implements IShowOrderVi
     @Override
     public void getShowOrderError(Throwable throwable) {
 
-        Toast.makeText(ShowOrderActivity.this, "" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(ShowOrderActivity.this, "服务器繁忙...", Toast.LENGTH_LONG).show();
 
     }
 
@@ -262,6 +266,8 @@ public class ShowOrderActivity extends AppCompatActivity implements IShowOrderVi
 
     @Override
     public void getUpdateOrderError(Throwable throwable) {
+
+        Toast.makeText(ShowOrderActivity.this, "服务器繁忙...", Toast.LENGTH_LONG).show();
 
     }
 
@@ -288,6 +294,8 @@ public class ShowOrderActivity extends AppCompatActivity implements IShowOrderVi
 
     @Override
     public void getDefaultAddressError(Throwable throwable) {
+
+        Toast.makeText(ShowOrderActivity.this, "服务器繁忙...", Toast.LENGTH_LONG).show();
 
     }
 

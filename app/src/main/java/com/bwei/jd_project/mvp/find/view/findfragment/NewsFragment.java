@@ -50,6 +50,7 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
     private void initDatas() {
 
 
+
     }
 
     private void initViews() {
@@ -59,7 +60,6 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
         boonAndNewsAndMenuPresenter = new BoonAndNewsAndMenuPresenter(this);
 
     }
-
 
     public static NewsFragment create(String title) {
 
@@ -78,7 +78,6 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
     public void onDestroy() {
         super.onDestroy();
 
-
     }
 
     @Override
@@ -93,7 +92,6 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
 
     @Override
     public void getNewsSuccess(NewsBean newsBean) {
-
 
         int error_code = newsBean.getError_code();
 
@@ -134,7 +132,7 @@ public class NewsFragment extends Fragment implements IBoonAndNewsAndMenuView {
 
         if (isVisibleToUser && boonAndNewsAndMenuPresenter != null) {
 
-           // boonAndNewsAndMenuPresenter.newsPresenter(HttpConfig.NEWS_URL);
+            boonAndNewsAndMenuPresenter.newsPresenter(HttpConfig.NEWS_URL);
 
         }
     }

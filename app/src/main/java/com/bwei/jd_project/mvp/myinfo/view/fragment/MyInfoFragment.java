@@ -34,6 +34,7 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
     private View view;
     private SharedPreferences sharedPreferences;
+    private boolean isOn;
 
     @Nullable
     @Override
@@ -50,6 +51,7 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
             initViews();
 
         } else {
+
             initViews();
 
             initDatas();
@@ -67,7 +69,7 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
         String icon = sharedPreferences.getString("icon", "ddd");
 
-        String useruame = sharedPreferences.getString("username", "fly");
+        String useruame = sharedPreferences.getString("username", "");
 
         userPic.setImageURI(icon);
 
@@ -108,9 +110,21 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.myOrder:
 
-                Intent it1 = new Intent(getActivity(), ShowOrderActivity.class);
+                SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("uid", Context.MODE_PRIVATE);
 
-                startActivity(it1);
+                boolean isOn = sharedPreferences1.getBoolean("isOn", false);
+
+                if (isOn){
+
+                    Intent it1 = new Intent(getActivity(), ShowOrderActivity.class);
+
+                    startActivity(it1);
+
+                }else{
+
+                    Toast.makeText(getActivity(),"亲,你要先去登陆哦!",Toast.LENGTH_LONG).show();
+
+                }
 
                 break;
 
@@ -120,9 +134,9 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.userPic:
 
-                boolean isOn = sharedPreferences.getBoolean("isOn", false);
+                this.isOn = sharedPreferences.getBoolean("isOn", false);
 
-                if (isOn == false) {
+                if (this.isOn == false) {
 
                     Intent it = new Intent(getActivity(), LoginActivity.class);
 
@@ -172,4 +186,5 @@ public class MyInfoFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
 }

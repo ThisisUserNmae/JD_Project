@@ -169,7 +169,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
 
         if ("0".equals(code)){
 
-            Toast.makeText(SelectActivity.this,"您的请求成功了",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(SelectActivity.this,"您的请求成功了",Toast.LENGTH_SHORT).show();
 
             List<SearchBean.DataBean> data = searchBean.getData();
 

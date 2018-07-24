@@ -115,6 +115,7 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
         List<ShoppingCarBean.DataBean.ListBean> childlist = this.list.get(groupPosition).getList();
 
         for (ShoppingCarBean.DataBean.ListBean listBean : childlist) {
+
             if (listBean.getSelected() == 0) {
                 return false;
             }
@@ -363,7 +364,6 @@ public class ShoppingCarShowExpandableListView extends BaseExpandableListAdapter
             }
 
         }
-
 
     }
 

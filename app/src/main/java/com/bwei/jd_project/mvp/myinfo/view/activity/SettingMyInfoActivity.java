@@ -153,7 +153,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
             case R.id.ll_userIcon_setting:
 
                 Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //2.灏嗗浘鐗囧瓨鍏DCARD
+
                 it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path)));
                 startActivityForResult(it, 1000);
 
@@ -210,6 +210,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
         }
 
         if (requestCode == 2000 && resultCode == RESULT_OK) {
+
             Bitmap bitmap = data.getParcelableExtra("data");
 
             File file = new File(getFilesDir().getAbsolutePath());
@@ -222,11 +223,14 @@ public class SettingMyInfoActivity extends AppCompatActivity implements View.OnC
 
             File file1 = new File(file, "photo.png");
             FileOutputStream fileOutputStream;
+
             try {
+
                 fileOutputStream = new FileOutputStream(file1);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
                 fileOutputStream.flush();
                 fileOutputStream.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

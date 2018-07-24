@@ -6,7 +6,6 @@ public abstract class BasePresenter<V extends ivew> {
 
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-
     protected V view;
 
     public BasePresenter(V view) {
@@ -18,7 +17,12 @@ public abstract class BasePresenter<V extends ivew> {
 
     public void onDestroy(){
 
-        view = null;
+        if (view!=null){
+
+            view = null;
+
+        }
+
         compositeDisposable.clear();
 
     }

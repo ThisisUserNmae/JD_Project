@@ -154,7 +154,7 @@ public class CommonAddressActivity extends AppCompatActivity implements ICommonA
     @Override
     public void getUpdateDefaultAddressError(Throwable throwable) {
 
-        Toast.makeText(CommonAddressActivity.this,""+throwable.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(CommonAddressActivity.this,"服务器繁忙...",Toast.LENGTH_SHORT).show();
 
     }
 

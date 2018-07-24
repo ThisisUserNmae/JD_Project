@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
-            android:text="会飞的鱼"
+            android:text="请登陆"
             android:textSize="20dp" />
 
         <ImageView

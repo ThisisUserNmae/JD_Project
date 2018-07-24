@@ -120,7 +120,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
                     }else{
 
-                        Toast.makeText(ProductDetailsActivity.this,"您还没有登录",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailsActivity.this,"亲,你要先去登陆哦!",Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -206,7 +206,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
         } else {
 
-            //Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_LONG).show();
+            Toast.makeText(ProductDetailsActivity.this, "服务器繁忙...", Toast.LENGTH_LONG).show();
 
         }
 
@@ -215,7 +215,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     @Override
     public void getError(Throwable throwable) {
 
-        //Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(ProductDetailsActivity.this, "服务器繁忙...", Toast.LENGTH_LONG).show();
 
         //Log.d(TAG, "getError: " + throwable.getMessage());
 
@@ -231,7 +231,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
         } else {
 
-            //Toast.makeText(ProductDetailsActivity.this, "您的请求失败了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductDetailsActivity.this, "服务器繁忙...", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -240,7 +240,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     @Override
     public void getAddShoppingCarError(Throwable throwable) {
 
-        //Toast.makeText(ProductDetailsActivity.this, "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductDetailsActivity.this, "服务器繁忙...", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -262,7 +262,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
 
             Log.d(TAG, "getAddOrderSuccess: msg"+msg);
 
-            Toast.makeText(ProductDetailsActivity.this,"你创建订单出错啦",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductDetailsActivity.this,"服务器繁忙...",Toast.LENGTH_SHORT).show();
 
         }
 
@@ -271,7 +271,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements IHomeSh
     @Override
     public void getAddOrderError(Throwable throwable) {
 
-        Toast.makeText(ProductDetailsActivity.this,""+throwable.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductDetailsActivity.this,"服务器繁忙...",Toast.LENGTH_SHORT).show();
 
     }
 
